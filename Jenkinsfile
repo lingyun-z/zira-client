@@ -5,13 +5,15 @@ pipeline {
 
   stages {
     stage('build') {
-      sh "docker build --no-cache -t ${PROJECT_NAME}:lastest -f local.dockerfile ."
+      steps {
+        sh "docker build --no-cache -t ${PROJECT_NAME}:lastest -f local.dockerfile ."
+      }
     }
 
     stage('deploy') {
-      sh "bash deploy.sh"
+      steps {
+        sh "bash deploy.sh"
+      }
     }
   }
-
-  
 }
