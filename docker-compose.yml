@@ -4,5 +4,7 @@ services:
     restart: always
     image: zira-client
     container_name: zira-client
+    networks:
+      - zira-front
     ports:
-      - '80:80'
+      - '80:8081'

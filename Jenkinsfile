@@ -13,7 +13,6 @@ pipeline {
 
     stage('deploy') {
       steps {
-        echo 'asd'
         sh "bash deploy.sh"
       }
     }
