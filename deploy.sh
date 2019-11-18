@@ -1,2 +1,2 @@
-docker rm -f zira-client:latest
+docker rm -f zira-client
 docker-compose up -d
