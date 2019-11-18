@@ -5,4 +5,4 @@ services:
     image: zira-client
     container_name: zira-client
     ports:
-      - '80:8081'
+      - '8081:80'
