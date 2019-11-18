@@ -2,7 +2,7 @@ version: '0'
 services:
   zira-client:
     restart: always
-    image: zira-client:latest
+    image: zira-client
     container_name: zira-client
     ports:
       - '80:80'
