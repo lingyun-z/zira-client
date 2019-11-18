@@ -8,3 +8,6 @@ services:
       - zira-front
     ports:
       - '80:8081'
+networks:
+  zira-front:
+    driver: bridge
