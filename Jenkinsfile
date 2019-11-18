@@ -1,4 +1,4 @@
-pipline{
+pipeline {
   environment {
     PROJECT_NAME = "zira-client"
   }
