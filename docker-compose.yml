@@ -11,4 +11,4 @@ services:
 networks:
   front:
     external:
-      name: zira-proxy_front
+      name: ziraproxy_front
