@@ -7,8 +7,8 @@ services:
     ports:
       - '8081:80'
     networks:
-      - front
+      - zira
 networks:
-  front:
+  zira:
     external:
-      name: ziraproxy_front
+      name: zira
