@@ -1,4 +1,4 @@
-version: '0'
+version: '2'
 services:
   zira-client:
     restart: always
@@ -6,3 +6,9 @@ services:
     container_name: zira-client
     ports:
       - '8081:80'
+    networks:
+      - front
+networks:
+  front:
+    external:
+      name: zira-proxy_front
