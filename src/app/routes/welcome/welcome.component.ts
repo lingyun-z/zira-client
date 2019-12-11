@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { TicketService } from 'app/core/services/ticket.service';
 
 @Component({
   selector: 'app-welcome',
@@ -7,15 +8,9 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./welcome.component.scss'],
 })
 export class WelcomeComponent implements OnInit {
-  test;
+  constructor(private ticketService: TicketService) {}
 
-  constructor(private http: HttpClient) {}
-
-  ngOnInit() {}
-
-  get(name) {
-    this.http.get(`http://111.231.51.74/api/hello/${name}`).subscribe(data => {
-      this.test = data;
-    });
+  ngOnInit() {
+    this.ticketService.getAllTicket().subscribe(data => console.log(data));
   }
 }

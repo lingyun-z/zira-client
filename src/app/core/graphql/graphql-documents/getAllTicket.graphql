@@ -1,0 +1,13 @@
+query getAllTicket {
+  getAllTicket {
+    id
+    title
+    createdBy
+    deleted
+    user {
+      id
+      name
+      mail
+    }
+  }
+}

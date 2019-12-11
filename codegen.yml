@@ -1,0 +1,10 @@
+overwrite: true
+schema: 'graphql.schema.json'
+documents: 'src/app/core/graphql/graphql-documents/*.graphql'
+generates:
+  src/app/core/generated/graphql.ts:
+    plugins:
+      - add: '/* tslint:disable */'
+      - typescript-common
+      - typescript-client
+      - typescript-apollo-angular

@@ -7,7 +7,7 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        sh "docker build --no-cache -t ${PROJECT_NAME}:latest ."
+        sh "docker build -t ${PROJECT_NAME}:latest ."
       }
     }
 
