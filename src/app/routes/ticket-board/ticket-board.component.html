@@ -1,0 +1,33 @@
+<div class="head-nav">
+  <div class="title">
+    Open issues
+  </div>
+</div>
+<div class="ticket-board-box">
+  <div class="ticket-list-box">
+    <div class="ticket-list">
+      <div
+        class="ticket"
+        *ngFor="let ticket of ticketList"
+        (click)="displayDetail(ticket.number)"
+      >
+        <div class="ticket-number">
+          {{ ticket.projectName + '-' + ticket.number }}
+        </div>
+        <div class="ticket-title">{{ ticket.title }}</div>
+      </div>
+    </div>
+    <div class="action-box">
+      <div class="create-button" (click)="openCreateTicketDialog()">
+        + create ticket
+      </div>
+      <div class="page-box"></div>
+    </div>
+  </div>
+  <div class="ticket-detail-box">
+    <app-ticket-detail
+      *ngIf="ticketList"
+      [ticketNumber]="ticketList[0].number"
+    ></app-ticket-detail>
+  </div>
+</div>

@@ -1,0 +1,5 @@
+mutation addTicket($ticket: TicketInput!) {
+  addTicket(ticket: $ticket) {
+    id
+  }
+}

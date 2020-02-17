@@ -1,0 +1,87 @@
+<div class="ticket-page" *ngIf="ticket">
+  <div class="ticket-head">
+    <!-- <div class="ticket-path">
+      <p>
+        <a>ZIRA</a> /
+        <a>ZIRA-1234</a>
+      </p>
+    </div> -->
+
+    <div class="ticket-title">
+      {{ ticket.title }}
+    </div>
+  </div>
+  <div class="ticket-actions">
+    <button>edit</button>
+    <button>comment</button>
+    <button>assign</button>
+  </div>
+  <div class="ticket-body">
+    <div class="ticket-detail">
+      <div class="box">
+        <div class="title">Details</div>
+        <div class="body">
+          <table>
+            <tr>
+              <td>Type:</td>
+              <td>{{ ticket.type }}</td>
+            </tr>
+            <tr>
+              <td>Status:</td>
+              <td>{{ ticket.status }}</td>
+            </tr>
+            <tr>
+              <td>Story Points:</td>
+              <td>{{ ticket.estimate }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="box">
+        <div class="title">Description</div>
+        <div class="body">
+          {{ ticket.description }}
+        </div>
+      </div>
+    </div>
+    <div class="ticket-info">
+      <div class="box">
+        <div class="title">People</div>
+        <div class="body">
+          <table>
+            <tr>
+              <td>Assignee:</td>
+              <td *ngIf="ticket.assigneeUser; else unassigned">
+                {{ ticket.assigneeUser.name }}
+              </td>
+              <ng-template #unassigned>
+                <td>
+                  unassigned
+                </td>
+              </ng-template>
+            </tr>
+            <tr>
+              <td>Creator:</td>
+              <td>{{ ticket.createdUser.name }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="box">
+        <div class="title">Dates</div>
+        <div class="body">
+          <table>
+            <tr>
+              <td>Created:</td>
+              <td>{{ ticket.createdDate }}</td>
+            </tr>
+            <tr>
+              <td>Updated:</td>
+              <td>{{ ticket.updateDate }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

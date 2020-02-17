@@ -1,0 +1,41 @@
+.ticket-page {
+  padding: 20px;
+}
+
+.ticket-head {
+  .ticket-path {
+    a {
+      font-size: 14px;
+    }
+  }
+  .ticket-title {
+    font-size: 24px;
+    font-weight: 400;
+    margin: 0 0 10px 0;
+  }
+}
+
+.ticket-actions {
+}
+
+.ticket-body {
+  display: flex;
+  .ticket-detail {
+    flex-grow: 2;
+  }
+
+  .ticket-info {
+    flex-grow: 1;
+  }
+
+  .box {
+    margin-bottom: 30px;
+
+    .title {
+      font-weight: 700;
+    }
+    .body {
+      padding: 0 0 0 20px;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+.title {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+form {
+  width: 100%;
+  .input-box {
+    width: 70%;
+  }
+}
+
+.action-box {
+  display: flex;
+  justify-content: space-between;
+  width: 70%;
+}

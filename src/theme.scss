@@ -1,0 +1,51 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+$app-palette: (
+  50: #ffffff,
+  100: #f2f2f2,
+  200: #d8d8d8,
+  300: #999999,
+  400: #666666,
+  500: #4a4a4a,
+  600: #333333,
+  A100: #d04a02,
+  A200: #ffe8dc,
+  A300: #ffb600,
+  A400: #66bb6a,
+  A500: #fa5927,
+  contrast: (
+    50: #000,
+    100: #000,
+    200: #000,
+    300: #fff,
+    400: #fff,
+    500: #fff,
+    600: #fff,
+    A100: #fff,
+    A200: #000,
+    A300: #000,
+    A400: #000,
+    A500: #000,
+  ),
+);
+
+$primary: mat-palette($app-palette, A100);
+$accent: mat-palette($app-palette, 500);
+$warn: mat-palette($app-palette, A300);
+$app-theme: mat-light-theme($primary, $accent, $warn);
+
+//common used colors
+$red: mat-color($primary);
+$red-new: mat-color($primary, A500);
+$dark: mat-color($primary, 600);
+$dark-lighter: mat-color($primary, 500);
+$grey: mat-color($primary, 400);
+$grey-lighter: mat-color($primary, 300);
+$grey-lightest: mat-color($primary, 200);
+$white: mat-color($primary, 50);
+$border-color: mat-color($primary, 200);
+$yellow: mat-color($primary, A300);
+$green: mat-color($primary, A400);
+$red-lighter: mat-color($primary, A200);
+$bg-color: mat-color($primary, 100);

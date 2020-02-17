@@ -1,47 +1,239 @@
 /* tslint:disable */
 export type Maybe<T> = T | null;
 
-export interface UserInput {
-  name: string;
+export interface ProjectInput {
+  id?: Maybe<string>;
 
-  mail: string;
+  name?: Maybe<string>;
+
+  description?: Maybe<string>;
+}
+
+export interface TicketInput {
+  id?: Maybe<string>;
+
+  projectName?: Maybe<string>;
+
+  parentId?: Maybe<string>;
+
+  title?: Maybe<string>;
+
+  type?: Maybe<string>;
+
+  status?: Maybe<string>;
+
+  estimate?: Maybe<string>;
+
+  description?: Maybe<string>;
+
+  createdBy?: Maybe<string>;
+
+  assignee?: Maybe<string>;
+}
+
+export interface UserInput {
+  id?: Maybe<string>;
+
+  workUserId?: Maybe<string>;
+
+  name?: Maybe<string>;
+
+  mail?: Maybe<string>;
+}
+
+export enum Role {
+  Owner = 'OWNER',
+  Member = 'MEMBER',
 }
 
 // ====================================================
 // Documents
 // ====================================================
 
-export namespace GetAllTicket {
+export namespace AddTicket {
+  export type Variables = {
+    ticket: TicketInput;
+  };
+
+  export type Mutation = {
+    __typename?: 'Mutation';
+
+    addTicket: Maybe<AddTicket>;
+  };
+
+  export type AddTicket = {
+    __typename?: 'Ticket';
+
+    id: string;
+  };
+}
+
+export namespace GetCurrentUser {
   export type Variables = {};
 
   export type Query = {
     __typename?: 'Query';
 
-    getAllTicket: (Maybe<GetAllTicket>)[];
+    getCurrentUser: Maybe<GetCurrentUser>;
   };
 
-  export type GetAllTicket = {
-    __typename?: 'Ticket';
-
-    id: string;
-
-    title: string;
-
-    createdBy: string;
-
-    deleted: boolean;
-
-    user: Maybe<User>;
-  };
-
-  export type User = {
+  export type GetCurrentUser = {
     __typename?: 'User';
 
     id: string;
 
-    name: string;
+    name: Maybe<string>;
 
-    mail: string;
+    mail: Maybe<string>;
+  };
+}
+
+export namespace GetPagedTicket {
+  export type Variables = {
+    projectName?: Maybe<string>;
+    pageNum?: Maybe<number>;
+    pageSize?: Maybe<number>;
+  };
+
+  export type Query = {
+    __typename?: 'Query';
+
+    getPagedTicket: Maybe<Maybe<GetPagedTicket>[]>;
+  };
+
+  export type GetPagedTicket = {
+    __typename?: 'Ticket';
+
+    id: string;
+
+    title: Maybe<string>;
+
+    number: Maybe<string>;
+
+    projectName: Maybe<string>;
+
+    createdBy: Maybe<string>;
+
+    createdUser: Maybe<CreatedUser>;
+
+    assignee: Maybe<string>;
+
+    assigneeUser: Maybe<AssigneeUser>;
+  };
+
+  export type CreatedUser = {
+    __typename?: 'User';
+
+    id: string;
+
+    name: Maybe<string>;
+  };
+
+  export type AssigneeUser = {
+    __typename?: 'User';
+
+    id: string;
+
+    name: Maybe<string>;
+  };
+}
+
+export namespace GetAuthByUserId {
+  export type Variables = {};
+
+  export type Query = {
+    __typename?: 'Query';
+
+    getAuthByUserId: Maybe<Maybe<GetAuthByUserId>[]>;
+  };
+
+  export type GetAuthByUserId = {
+    __typename?: 'Auth';
+
+    projectId: string;
+
+    project: Maybe<Project>;
+
+    userId: string;
+
+    role: Maybe<Role>;
+  };
+
+  export type Project = {
+    __typename?: 'Project';
+
+    id: string;
+
+    name: Maybe<string>;
+
+    description: Maybe<string>;
+  };
+}
+
+export namespace GetTicketByNumber {
+  export type Variables = {
+    projectName?: Maybe<string>;
+    ticketNumber?: Maybe<string>;
+  };
+
+  export type Query = {
+    __typename?: 'Query';
+
+    getTicketByNumber: Maybe<GetTicketByNumber>;
+  };
+
+  export type GetTicketByNumber = {
+    __typename?: 'Ticket';
+
+    id: string;
+
+    number: Maybe<string>;
+
+    projectName: Maybe<string>;
+
+    parentTicket: Maybe<ParentTicket>;
+
+    title: Maybe<string>;
+
+    description: Maybe<string>;
+
+    estimate: Maybe<string>;
+
+    status: Maybe<string>;
+
+    type: Maybe<string>;
+
+    createdUser: Maybe<CreatedUser>;
+
+    assigneeUser: Maybe<AssigneeUser>;
+
+    createdDate: Maybe<string>;
+
+    updateDate: Maybe<string>;
+  };
+
+  export type ParentTicket = {
+    __typename?: 'Ticket';
+
+    id: string;
+
+    number: Maybe<string>;
+  };
+
+  export type CreatedUser = {
+    __typename?: 'User';
+
+    id: string;
+
+    name: Maybe<string>;
+  };
+
+  export type AssigneeUser = {
+    __typename?: 'User';
+
+    id: string;
+
+    name: Maybe<string>;
   };
 }
 
@@ -61,22 +253,124 @@ import gql from 'graphql-tag';
 @Injectable({
   providedIn: 'root',
 })
-export class GetAllTicketGQL extends Apollo.Query<
-  GetAllTicket.Query,
-  GetAllTicket.Variables
+export class AddTicketGQL extends Apollo.Mutation<
+  AddTicket.Mutation,
+  AddTicket.Variables
 > {
   document: any = gql`
-    query getAllTicket {
-      getAllTicket {
+    mutation addTicket($ticket: TicketInput!) {
+      addTicket(ticket: $ticket) {
+        id
+      }
+    }
+  `;
+}
+@Injectable({
+  providedIn: 'root',
+})
+export class GetCurrentUserGQL extends Apollo.Query<
+  GetCurrentUser.Query,
+  GetCurrentUser.Variables
+> {
+  document: any = gql`
+    query getCurrentUser {
+      getCurrentUser {
+        id
+        name
+        mail
+      }
+    }
+  `;
+}
+@Injectable({
+  providedIn: 'root',
+})
+export class GetPagedTicketGQL extends Apollo.Query<
+  GetPagedTicket.Query,
+  GetPagedTicket.Variables
+> {
+  document: any = gql`
+    query getPagedTicket($projectName: String, $pageNum: Int, $pageSize: Int) {
+      getPagedTicket(
+        projectName: $projectName
+        pageNum: $pageNum
+        pageSize: $pageSize
+      ) {
         id
         title
+        number
+        projectName
         createdBy
-        deleted
-        user {
+        createdUser {
           id
           name
-          mail
         }
+        assignee
+        assigneeUser {
+          id
+          name
+        }
+      }
+    }
+  `;
+}
+@Injectable({
+  providedIn: 'root',
+})
+export class GetAuthByUserIdGQL extends Apollo.Query<
+  GetAuthByUserId.Query,
+  GetAuthByUserId.Variables
+> {
+  document: any = gql`
+    query getAuthByUserId {
+      getAuthByUserId {
+        projectId
+        project {
+          id
+          name
+          description
+        }
+        userId
+        role
+      }
+    }
+  `;
+}
+@Injectable({
+  providedIn: 'root',
+})
+export class GetTicketByNumberGQL extends Apollo.Query<
+  GetTicketByNumber.Query,
+  GetTicketByNumber.Variables
+> {
+  document: any = gql`
+    query getTicketByNumber($projectName: String, $ticketNumber: String) {
+      getTicketByNumber(
+        projectName: $projectName
+        ticketNumber: $ticketNumber
+      ) {
+        id
+        number
+        projectName
+        parentTicket {
+          id
+          number
+        }
+        title
+        description
+        estimate
+        status
+        type
+        createdUser {
+          id
+          name
+        }
+        assigneeUser {
+          id
+          name
+        }
+        createdDate
+        updateDate
       }
     }
   `;

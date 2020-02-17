@@ -1,0 +1,65 @@
+.head-nav {
+  height: 60px;
+  border-bottom: 1px solid rgb(200, 200, 200);
+
+  .title {
+    line-height: 60px;
+    margin-left: 20px;
+  }
+}
+
+.ticket-board-box {
+  display: flex;
+  height: calc(100vh - 120px);
+
+  .ticket-list-box {
+    width: 250px;
+    border-right: 1px solid rgb(200, 200, 200);
+    padding: 0 0 0 20px;
+    .ticket-list {
+      overflow: auto;
+      height: calc(100vh - 210px);
+
+      .ticket:hover {
+        background-color: #ddd;
+        cursor: pointer;
+      }
+
+      .ticket {
+        border-bottom: 1px solid rgb(200, 200, 200);
+        padding: 10px 15px;
+
+        .ticket-number {
+          font-size: 15px;
+        }
+
+        .ticket-title {
+          margin-top: 3px;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+      }
+    }
+    .action-box {
+      .create-button:hover {
+        cursor: pointer;
+      }
+
+      .create-button {
+        padding-left: 10px;
+        height: 35px;
+        border-bottom: 1px solid rgb(200, 200, 200);
+        color: rgb(150, 150, 150);
+        line-height: 35px;
+      }
+      .page-box {
+      }
+    }
+  }
+
+  .ticket-detail-box {
+    overflow: auto;
+    flex-grow: 1;
+  }
+}

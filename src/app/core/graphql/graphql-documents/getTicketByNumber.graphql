@@ -1,0 +1,26 @@
+query getTicketByNumber($projectName: String, $ticketNumber: String) {
+  getTicketByNumber(projectName: $projectName, ticketNumber: $ticketNumber) {
+    id
+    number
+    projectName
+    parentTicket {
+      id
+      number
+    }
+    title
+    description
+    estimate
+    status
+    type
+    createdUser {
+      id
+      name
+    }
+    assigneeUser {
+      id
+      name
+    }
+    createdDate
+    updateDate
+  }
+}

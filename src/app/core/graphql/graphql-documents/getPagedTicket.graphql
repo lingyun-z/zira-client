@@ -1,0 +1,22 @@
+query getPagedTicket($projectName: String, $pageNum: Int, $pageSize: Int) {
+  getPagedTicket(
+    projectName: $projectName
+    pageNum: $pageNum
+    pageSize: $pageSize
+  ) {
+    id
+    title
+    number
+    projectName
+    createdBy
+    createdUser {
+      id
+      name
+    }
+    assignee
+    assigneeUser {
+      id
+      name
+    }
+  }
+}
