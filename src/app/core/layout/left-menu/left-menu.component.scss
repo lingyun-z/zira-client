@@ -1,0 +1,27 @@
+@import 'src/theme.scss';
+
+.left-menu {
+  width: 200px;
+  background-color: #e0e0e0;
+  min-height: calc(100vh - 60px);
+
+  .item:hover {
+    background-color: #ffffff;
+  }
+
+  .item {
+    display: flex;
+    cursor: pointer;
+    height: 60px;
+    padding-left: 20px;
+
+    .icon {
+      color: $blue;
+      padding: 18px 10px 0 0;
+    }
+
+    div {
+      line-height: 60px;
+    }
+  }
+}

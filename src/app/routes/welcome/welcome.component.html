@@ -1,4 +1,47 @@
-<p>welcome works!</p>
-<h1>{{ test }}</h1>
-<input type="text" #input />
-<button (click)="get(input.value)">submit</button>
+<div class="page">
+  <div class="card">
+    <div class="title">
+      <h1>Login</h1>
+    </div>
+    <div class="body">
+      <form [formGroup]="loginFormGroup">
+        <div>
+          <mat-form-field class="input-box">
+            <mat-label>E-mail</mat-label>
+            <input matInput formControlName="mail" />
+            <mat-error
+              *ngIf="
+                loginFormGroup.controls.mail.errors &&
+                loginFormGroup.controls.mail.errors.required
+              "
+            >
+              E-mail is required.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="input-box">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password" />
+            <mat-error
+              *ngIf="
+                loginFormGroup.controls.password.errors &&
+                loginFormGroup.controls.password.errors.required
+              "
+            >
+              Password is required.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="action-box">
+          <button mat-stroked-button>
+            Sign Up
+          </button>
+          <button mat-raised-button (click)="login()" color="primary">
+            Sign In
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

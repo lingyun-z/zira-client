@@ -80,6 +80,6 @@ export class GraphQLModule {
     });
   }
   getToken() {
-    return 'TOKEN';
+    return localStorage.getItem('token');
   }
 }

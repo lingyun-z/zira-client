@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
+import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TicketService } from 'app/core/services/ticket.service';
-import { Validators, FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-create-ticket-dialog',
@@ -25,7 +25,6 @@ export class CreateTicketDialogComponent implements OnInit {
   ngOnInit() {}
 
   submit() {
-    console.log(this.ticketFormGroup);
     Object.assign(this.ticketFormGroup.value, {
       projectName: this.projectName,
     });

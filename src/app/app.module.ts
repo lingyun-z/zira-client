@@ -10,6 +10,11 @@ import { GraphQLModule } from 'app/core/graphql/graphql.module';
 import { ApolloModule } from 'apollo-angular';
 
 import { AppComponent } from './app.component';
+import { UserService } from './core/services/user.service';
+import { AuthService } from './core/services/auth.service';
+import { AuthLogoutService } from './core/services/auth-logout.service';
+import { WelcomeGuard } from './core/guard/welcome-guard.service';
+import { AuthGuard } from './core/guard/auth-guard.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,7 +28,13 @@ import { AppComponent } from './app.component';
     HttpClientModule,
     LayoutModule,
   ],
-  providers: [],
+  providers: [
+    UserService,
+    AuthService,
+    AuthLogoutService,
+    AuthGuard,
+    WelcomeGuard,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,6 +1,60 @@
 <div>
-  <app-navbar></app-navbar>
+  <div class="nav-bar">
+    <div>
+      <div class="banner">
+        <span>
+          <mat-icon
+            class="menu-icon"
+            svgIcon="menu"
+            (click)="drawer.toggle()"
+            *ngIf="isLogged"
+          ></mat-icon>
+        </span>
+        ZIRA
+      </div>
+    </div>
+
+    <div class="logout-container" *ngIf="isLogged && currentUser">
+      <div [matMenuTriggerFor]="menu" class="padding-left">
+        <div class="user-name">
+          <span>
+            {{ currentUser.name[0] }}
+          </span>
+        </div>
+      </div>
+      <mat-menu #menu="matMenu" class="nav-menu">
+        <div class="flex user-info">
+          <div class="user-name">
+            <span *ngIf="currentUser.name.length">
+              {{ currentUser.name }}
+            </span>
+          </div>
+          <div>
+            <div>{{ currentUser.name }}</div>
+            <div class="email">{{ currentUser.email }}</div>
+          </div>
+        </div>
+        <button mat-menu-item>
+          <span>Invite User</span>
+        </button>
+
+        <button class="border-bottom" mat-menu-item>
+          <span>User Management</span>
+        </button>
+        <div class="sign-out">
+          <div class="sign-out-inner" (click)="logout()">SIGN OUT</div>
+        </div>
+      </mat-menu>
+    </div>
+  </div>
   <div>
-    <router-outlet></router-outlet>
+    <mat-drawer-container>
+      <mat-drawer #drawer mode="side">
+        <app-left-menu *ngIf="isLogged"></app-left-menu>
+      </mat-drawer>
+      <mat-drawer-content class="full-height">
+        <router-outlet></router-outlet>
+      </mat-drawer-content>
+    </mat-drawer-container>
   </div>
 </div>
