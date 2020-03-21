@@ -68,6 +68,42 @@ export namespace AddTicket {
   };
 }
 
+export namespace GetAuthUserByProjectId {
+  export type Variables = {
+    id: string;
+  };
+
+  export type Query = {
+    __typename?: 'Query';
+
+    getAuthUserByProjectId: Maybe<Maybe<GetAuthUserByProjectId>[]>;
+  };
+
+  export type GetAuthUserByProjectId = {
+    __typename?: 'Auth';
+
+    projectId: string;
+
+    userId: string;
+
+    user: Maybe<User>;
+
+    role: Maybe<Role>;
+  };
+
+  export type User = {
+    __typename?: 'User';
+
+    id: string;
+
+    workUserId: Maybe<string>;
+
+    name: Maybe<string>;
+
+    mail: Maybe<string>;
+  };
+}
+
 export namespace GetCurrentUser {
   export type Variables = {};
 
@@ -161,8 +197,6 @@ export namespace GetAuthByUserId {
 
   export type Project = {
     __typename?: 'Project';
-
-    id: string;
 
     name: Maybe<string>;
 
@@ -268,6 +302,29 @@ export class AddTicketGQL extends Apollo.Mutation<
 @Injectable({
   providedIn: 'root',
 })
+export class GetAuthUserByProjectIdGQL extends Apollo.Query<
+  GetAuthUserByProjectId.Query,
+  GetAuthUserByProjectId.Variables
+> {
+  document: any = gql`
+    query getAuthUserByProjectId($id: ID!) {
+      getAuthUserByProjectId(id: $id) {
+        projectId
+        userId
+        user {
+          id
+          workUserId
+          name
+          mail
+        }
+        role
+      }
+    }
+  `;
+}
+@Injectable({
+  providedIn: 'root',
+})
 export class GetCurrentUserGQL extends Apollo.Query<
   GetCurrentUser.Query,
   GetCurrentUser.Variables
@@ -326,7 +383,6 @@ export class GetAuthByUserIdGQL extends Apollo.Query<
       getAuthByUserId {
         projectId
         project {
-          id
           name
           description
         }

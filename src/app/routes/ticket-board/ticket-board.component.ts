@@ -43,7 +43,7 @@ export class TicketBoardComponent implements OnInit {
   openCreateTicketDialog() {
     const dialogRef = this.dialog.open(CreateTicketDialogComponent, {
       width: '700px',
-      height: '700px',
+      height: '600px',
       data: this.projectName,
     });
 

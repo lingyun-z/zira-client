@@ -5,7 +5,7 @@ RUN cd /tmp && yarn install
 RUN mkdir -p /app && cp -a /tmp/node_modules /app/
 
 COPY ./ /app/
-RUN yarn install && yarn build
+RUN yarn install && yarn build:dev
 
 FROM nginx:1.15
 COPY --from=build-stage /app/dist/ /app/dist

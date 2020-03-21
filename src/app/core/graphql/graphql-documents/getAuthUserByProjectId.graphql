@@ -1,0 +1,12 @@
+query getAuthUserByProjectId($id: ID!) {
+  getAuthUserByProjectId(id: $id) {
+    userId
+    user {
+      id
+      workUserId
+      name
+      mail
+    }
+    role
+  }
+}

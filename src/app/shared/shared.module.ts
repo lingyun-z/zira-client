@@ -7,7 +7,9 @@ import {
   MatIconModule,
   MatInputModule,
   MatMenuModule,
+  MatSelectModule,
   MatSidenavModule,
+  MatAutocompleteModule,
 } from '@angular/material';
 import { RouterModule } from '@angular/router';
 
@@ -18,7 +20,9 @@ const matModule = [
   MatIconModule,
   MatInputModule,
   MatMenuModule,
+  MatSelectModule,
   MatSidenavModule,
+  MatAutocompleteModule,
 ];
 
 @NgModule({

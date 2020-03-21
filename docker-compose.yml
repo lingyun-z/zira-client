@@ -5,10 +5,9 @@ services:
     image: zira-client
     container_name: zira-client
     ports:
-      - '8081:80'
+      - '80'
     networks:
       - zira
 networks:
   zira:
-    external:
-      name: zira
+    external: true

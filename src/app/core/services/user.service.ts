@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { GetCurrentUserGQL } from '../generated/graphql';
+import {
+  GetCurrentUserGQL,
+  GetAuthUserByProjectIdGQL,
+} from '../generated/graphql';
 import { take, map } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
@@ -8,7 +11,10 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 })
 export class UserService {
   userInfo$: BehaviorSubject<any> = new BehaviorSubject(null);
-  constructor(private getCurrentUserGQL: GetCurrentUserGQL) {}
+  constructor(
+    private getCurrentUserGQL: GetCurrentUserGQL,
+    private getAuthUserByProjectIdGQL: GetAuthUserByProjectIdGQL,
+  ) {}
 
   public getCurrentUser() {
     return this.userInfo$;
@@ -24,6 +30,15 @@ export class UserService {
       .valueChanges.pipe(
         take(1),
         map(({ data }) => data.getCurrentUser),
+      );
+  }
+
+  public getAuthUserByProjectId(id: string) {
+    return this.getAuthUserByProjectIdGQL
+      .watch({ id }, { fetchPolicy: 'network-only' })
+      .valueChanges.pipe(
+        take(1),
+        map(({ data }) => data.getAuthUserByProjectId),
       );
   }
 }

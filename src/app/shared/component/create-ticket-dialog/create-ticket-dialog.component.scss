@@ -1,17 +1,29 @@
 .title {
   font-size: 20px;
+  margin: 0 auto;
   margin-bottom: 20px;
+  width: 80%;
 }
 
 form {
-  width: 100%;
+  margin: 0 auto;
+  width: 80%;
   .input-box {
-    width: 70%;
+    width: 100%;
+  }
+
+  .select-box {
+    padding-right: 50px;
+  }
+
+  .field-line {
+    display: flex;
   }
 }
 
 .action-box {
   display: flex;
   justify-content: space-between;
+  margin: 30px auto;
   width: 70%;
 }
