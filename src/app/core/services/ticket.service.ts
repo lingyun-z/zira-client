@@ -3,6 +3,7 @@ import {
   AddTicketGQL,
   GetTicketByNumberGQL,
   GetPagedTicketGQL,
+  UpdateTicketGQL,
 } from '../generated/graphql';
 import { take, map } from 'rxjs/operators';
 
@@ -11,7 +12,7 @@ export class TicketService {
   constructor(
     private addTicketGQL: AddTicketGQL,
     private getPagedTicketGQL: GetPagedTicketGQL,
-
+    private updateTicketGQL: UpdateTicketGQL,
     private getTicketByNumberGQL: GetTicketByNumberGQL,
   ) {}
 
@@ -40,6 +41,13 @@ export class TicketService {
     return this.addTicketGQL.mutate({ ticket }).pipe(
       take(1),
       map(({ data }) => data.addTicket),
+    );
+  }
+
+  updateTicket(ticket) {
+    return this.updateTicketGQL.mutate({ ticket }).pipe(
+      take(1),
+      map(({ data }) => data.updateTicket),
     );
   }
 

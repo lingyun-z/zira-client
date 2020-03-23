@@ -26,8 +26,9 @@
   </div>
   <div class="ticket-detail-box">
     <app-ticket-detail
-      *ngIf="ticketList"
+      *ngIf="ticketList && project"
       [ticketNumber]="ticketList.length ? ticketList[0].number : ''"
+      [projectId]="project.id"
     ></app-ticket-detail>
   </div>
 </div>

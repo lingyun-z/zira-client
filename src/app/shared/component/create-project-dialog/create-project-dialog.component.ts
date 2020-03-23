@@ -13,6 +13,7 @@ export class CreateProjectDialogComponent implements OnInit {
     name: new FormControl('', [Validators.required]),
     description: new FormControl(''),
   });
+  result;
   constructor(
     public dialogRef: MatDialogRef<CreateProjectDialogComponent>,
     private projectService: ProjectService,
@@ -24,7 +25,7 @@ export class CreateProjectDialogComponent implements OnInit {
     this.projectService
       .addProject(this.projectFormGroup.value)
       .subscribe(data => {
-        this.dialogRef.close();
+        this.result = data;
       });
   }
 

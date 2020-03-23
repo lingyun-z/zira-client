@@ -1,3 +1,4 @@
+@import 'src/theme.scss';
 .page {
   padding: 20px;
 }
@@ -13,11 +14,14 @@
 
   .project-box {
     border: 1px solid rgb(200, 200, 200);
+    border-left: 3px solid $blue;
     border-radius: 3px;
-    width: 400px;
-    height: 200px;
+    width: 350px;
+    height: 175px;
     padding: 20px 10px;
     margin-bottom: 20px;
+    margin-right: 20px;
+
     .info-line {
       display: flex;
       .title {

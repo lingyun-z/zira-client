@@ -1,20 +1,20 @@
 <div class="ticket-page" *ngIf="ticket; else noTicket">
   <div class="ticket-head">
-    <!-- <div class="ticket-path">
-      <p>
-        <a>ZIRA</a> /
-        <a>ZIRA-1234</a>
-      </p>
-    </div> -->
-
     <div class="ticket-title">
       {{ ticket.title }}
     </div>
   </div>
   <div class="ticket-actions">
-    <button>edit</button>
-    <button>comment</button>
-    <button>assign</button>
+    <button
+      mat-stroked-button
+      color="primary"
+      (click)="openUpdateTicketDialog()"
+    >
+      edit
+    </button>
+    <button mat-flat-button color="primary" (click)="assignToMe()">
+      assign to me
+    </button>
   </div>
   <div class="ticket-body">
     <div class="ticket-detail">

@@ -24,11 +24,7 @@ export class TicketBoardComponent implements OnInit {
 
   ngOnInit() {
     this.actRouter.params.subscribe(params => {
-      this.ticketService
-        .getPagedTicket(params.project, 1, 20)
-        .subscribe(data => {
-          this.ticketList = data;
-        });
+      this.getPagedTicket(params.project);
       this.projectService.getProjectByName(params.project).subscribe(data => {
         this.project = { id: data.id, name: data.name };
       });
@@ -43,7 +39,17 @@ export class TicketBoardComponent implements OnInit {
     const dialogRef = this.dialog.open(CreateTicketDialogComponent, {
       width: '700px',
       height: '600px',
-      data: this.project,
+      data: { project: this.project, ticket: null },
+    });
+
+    dialogRef
+      .afterClosed()
+      .subscribe(_ => this.getPagedTicket(this.project.name));
+  }
+
+  getPagedTicket(projectName) {
+    this.ticketService.getPagedTicket(projectName, 1, 20).subscribe(data => {
+      this.ticketList = data;
     });
   }
 }

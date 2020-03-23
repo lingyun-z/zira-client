@@ -163,30 +163,6 @@ export namespace GetPagedTicket {
     number: Maybe<string>;
 
     projectName: Maybe<string>;
-
-    createdBy: Maybe<string>;
-
-    createdUser: Maybe<CreatedUser>;
-
-    assignee: Maybe<string>;
-
-    assigneeUser: Maybe<AssigneeUser>;
-  };
-
-  export type CreatedUser = {
-    __typename?: 'User';
-
-    id: string;
-
-    name: Maybe<string>;
-  };
-
-  export type AssigneeUser = {
-    __typename?: 'User';
-
-    id: string;
-
-    name: Maybe<string>;
   };
 }
 
@@ -275,7 +251,11 @@ export namespace GetTicketByNumber {
 
     type: Maybe<string>;
 
+    createdBy: Maybe<string>;
+
     createdUser: Maybe<CreatedUser>;
+
+    assignee: Maybe<string>;
 
     assigneeUser: Maybe<AssigneeUser>;
 
@@ -306,6 +286,24 @@ export namespace GetTicketByNumber {
     id: string;
 
     name: Maybe<string>;
+  };
+}
+
+export namespace UpdateTicket {
+  export type Variables = {
+    ticket: TicketInput;
+  };
+
+  export type Mutation = {
+    __typename?: 'Mutation';
+
+    updateTicket: Maybe<UpdateTicket>;
+  };
+
+  export type UpdateTicket = {
+    __typename?: 'Ticket';
+
+    id: string;
   };
 }
 
@@ -409,16 +407,6 @@ export class GetPagedTicketGQL extends Apollo.Query<
         title
         number
         projectName
-        createdBy
-        createdUser {
-          id
-          name
-        }
-        assignee
-        assigneeUser {
-          id
-          name
-        }
       }
     }
   `;
@@ -486,16 +474,33 @@ export class GetTicketByNumberGQL extends Apollo.Query<
         estimate
         status
         type
+        createdBy
         createdUser {
           id
           name
         }
+        assignee
         assigneeUser {
           id
           name
         }
         createdDate
         updateDate
+      }
+    }
+  `;
+}
+@Injectable({
+  providedIn: 'root',
+})
+export class UpdateTicketGQL extends Apollo.Mutation<
+  UpdateTicket.Mutation,
+  UpdateTicket.Variables
+> {
+  document: any = gql`
+    mutation updateTicket($ticket: TicketInput!) {
+      updateTicket(ticket: $ticket) {
+        id
       }
     }
   `;

@@ -10,7 +10,7 @@
 }
 
 .form-box {
-  height: 100%;
+  height: calc(100% - 44px);
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -36,6 +36,7 @@
     display: flex;
     justify-content: space-between;
     margin: 30px auto;
+    margin-bottom: 10px;
     width: 70%;
   }
 }

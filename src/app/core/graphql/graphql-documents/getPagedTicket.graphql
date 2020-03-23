@@ -8,15 +8,5 @@ query getPagedTicket($projectName: String, $pageNum: Int, $pageSize: Int) {
     title
     number
     projectName
-    createdBy
-    createdUser {
-      id
-      name
-    }
-    assignee
-    assigneeUser {
-      id
-      name
-    }
   }
 }

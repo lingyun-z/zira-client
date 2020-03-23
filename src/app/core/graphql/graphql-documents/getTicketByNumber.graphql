@@ -12,10 +12,12 @@ query getTicketByNumber($projectName: String, $ticketNumber: String) {
     estimate
     status
     type
+    createdBy
     createdUser {
       id
       name
     }
+    assignee
     assigneeUser {
       id
       name

@@ -95,7 +95,7 @@
       <button
         mat-raised-button
         color="primary"
-        (click)="submit()"
+        (click)="isCreate ? createTicket() : updateTicket()"
         [disabled]="ticketFormGroup.invalid"
       >
         SUBMIT

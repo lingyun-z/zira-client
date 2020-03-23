@@ -20,31 +20,58 @@ export class CreateTicketDialogComponent implements OnInit {
   });
   userList = [];
   filteredOptions: Subject<any[]> = new Subject();
+  isCreate = true;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public project: any,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<CreateTicketDialogComponent>,
     private ticketService: TicketService,
     private userService: UserService,
   ) {}
 
   ngOnInit() {
-    this.userService.getAuthUserByProjectId(this.project.id).subscribe(data => {
-      this.userList = data.map(user => {
-        return { id: user.userId, ...user.user };
+    this.userService
+      .getAuthUserByProjectId(this.data.project.id)
+      .subscribe(data => {
+        this.userList = data.map(user => {
+          return { id: user.userId, ...user.user };
+        });
       });
-    });
+    if (!!this.data.ticket) {
+      this.ticketFormGroup.setValue({
+        title: this.data.ticket.title,
+        estimate: this.data.ticket.estimate,
+        type: this.data.ticket.type,
+        description: this.data.ticket.description,
+        assignee: this.data.ticket.assigneeUser,
+      });
+      this.isCreate = false;
+    }
   }
 
-  submit() {
+  createTicket() {
     const newTicket = this.ticketFormGroup.value;
     newTicket.assignee = newTicket.assignee.id;
     Object.assign(newTicket, {
-      projectName: this.project.name,
+      projectName: this.data.project.name,
     });
     this.ticketService.addTicket(this.ticketFormGroup.value).subscribe(data => {
       this.dialogRef.close();
     });
+  }
+
+  updateTicket() {
+    const newTicket = this.ticketFormGroup.value;
+    newTicket.assignee = newTicket.assignee.id;
+    Object.assign(newTicket, {
+      projectName: this.data.project.name,
+      id: this.data.ticket.id,
+    });
+    this.ticketService
+      .updateTicket(this.ticketFormGroup.value)
+      .subscribe(data => {
+        this.dialogRef.close();
+      });
   }
 
   close() {

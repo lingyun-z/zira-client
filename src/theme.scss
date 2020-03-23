@@ -33,3 +33,4 @@ $app-theme: mat-light-theme($primary, $accent, $warn);
 
 //common used colors
 $blue: mat-color($primary);
+@include mat-button-theme($app-theme);

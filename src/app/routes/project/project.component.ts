@@ -17,15 +17,24 @@ export class ProjectComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.projectService.getAuthByUserId().subscribe(data => {
-      this.projects = data;
-    });
+    this.getProjects();
   }
 
   openCreateProjectDialog() {
-    this.dialog.open(CreateProjectDialogComponent, {
+    const dialogRef = this.dialog.open(CreateProjectDialogComponent, {
       width: '700px',
       height: '400px',
+    });
+
+    dialogRef.afterClosed().subscribe(_ => {
+      console.log(_);
+      this.getProjects();
+    });
+  }
+
+  getProjects() {
+    this.projectService.getAuthByUserId().subscribe(data => {
+      this.projects = data;
     });
   }
 }
