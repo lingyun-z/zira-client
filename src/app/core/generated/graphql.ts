@@ -50,6 +50,24 @@ export enum Role {
 // Documents
 // ====================================================
 
+export namespace AddProject {
+  export type Variables = {
+    project: ProjectInput;
+  };
+
+  export type Mutation = {
+    __typename?: 'Mutation';
+
+    addProject: Maybe<AddProject>;
+  };
+
+  export type AddProject = {
+    __typename?: 'Project';
+
+    id: string;
+  };
+}
+
 export namespace AddTicket {
   export type Variables = {
     ticket: TicketInput;
@@ -76,13 +94,11 @@ export namespace GetAuthUserByProjectId {
   export type Query = {
     __typename?: 'Query';
 
-    getAuthUserByProjectId: Maybe<Maybe<GetAuthUserByProjectId>[]>;
+    getAuthUserByProjectId: Maybe<(Maybe<GetAuthUserByProjectId>)[]>;
   };
 
   export type GetAuthUserByProjectId = {
     __typename?: 'Auth';
-
-    projectId: string;
 
     userId: string;
 
@@ -134,7 +150,7 @@ export namespace GetPagedTicket {
   export type Query = {
     __typename?: 'Query';
 
-    getPagedTicket: Maybe<Maybe<GetPagedTicket>[]>;
+    getPagedTicket: Maybe<(Maybe<GetPagedTicket>)[]>;
   };
 
   export type GetPagedTicket = {
@@ -174,13 +190,35 @@ export namespace GetPagedTicket {
   };
 }
 
+export namespace GetProjectByName {
+  export type Variables = {
+    projectName: string;
+  };
+
+  export type Query = {
+    __typename?: 'Query';
+
+    getProjectByName: Maybe<GetProjectByName>;
+  };
+
+  export type GetProjectByName = {
+    __typename?: 'Project';
+
+    id: string;
+
+    name: Maybe<string>;
+
+    description: Maybe<string>;
+  };
+}
+
 export namespace GetAuthByUserId {
   export type Variables = {};
 
   export type Query = {
     __typename?: 'Query';
 
-    getAuthByUserId: Maybe<Maybe<GetAuthByUserId>[]>;
+    getAuthByUserId: Maybe<(Maybe<GetAuthByUserId>)[]>;
   };
 
   export type GetAuthByUserId = {
@@ -287,6 +325,21 @@ import gql from 'graphql-tag';
 @Injectable({
   providedIn: 'root',
 })
+export class AddProjectGQL extends Apollo.Mutation<
+  AddProject.Mutation,
+  AddProject.Variables
+> {
+  document: any = gql`
+    mutation addProject($project: ProjectInput!) {
+      addProject(project: $project) {
+        id
+      }
+    }
+  `;
+}
+@Injectable({
+  providedIn: 'root',
+})
 export class AddTicketGQL extends Apollo.Mutation<
   AddTicket.Mutation,
   AddTicket.Variables
@@ -309,7 +362,6 @@ export class GetAuthUserByProjectIdGQL extends Apollo.Query<
   document: any = gql`
     query getAuthUserByProjectId($id: ID!) {
       getAuthUserByProjectId(id: $id) {
-        projectId
         userId
         user {
           id
@@ -367,6 +419,23 @@ export class GetPagedTicketGQL extends Apollo.Query<
           id
           name
         }
+      }
+    }
+  `;
+}
+@Injectable({
+  providedIn: 'root',
+})
+export class GetProjectByNameGQL extends Apollo.Query<
+  GetProjectByName.Query,
+  GetProjectByName.Variables
+> {
+  document: any = gql`
+    query getProjectByName($projectName: String!) {
+      getProjectByName(projectName: $projectName) {
+        id
+        name
+        description
       }
     }
   `;

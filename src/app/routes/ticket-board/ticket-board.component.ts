@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { TicketService } from 'app/core/services/ticket.service';
 import { CreateTicketDialogComponent } from 'app/shared/component/create-ticket-dialog/create-ticket-dialog.component';
+import { ProjectService } from 'app/core/services/project.service';
 
 @Component({
   selector: 'app-ticket-board',
@@ -11,42 +12,38 @@ import { CreateTicketDialogComponent } from 'app/shared/component/create-ticket-
 })
 export class TicketBoardComponent implements OnInit {
   ticketList;
-  projectName: string;
+  project: any;
 
   constructor(
     private ticketService: TicketService,
+    private projectService: ProjectService,
     private actRouter: ActivatedRoute,
     private dialog: MatDialog,
     private router: Router,
   ) {}
 
   ngOnInit() {
-    // this.ticketService
-    //   .getTicketById('5aaa0819-2efc-11ea-b286-0242ac110002')
-    //   .subscribe(data => {
-    //     console.log(data);
-    //   });
     this.actRouter.params.subscribe(params => {
-      this.projectName = params.project;
       this.ticketService
-        .getPagedTicket(this.projectName, 1, 20)
+        .getPagedTicket(params.project, 1, 20)
         .subscribe(data => {
           this.ticketList = data;
         });
+      this.projectService.getProjectByName(params.project).subscribe(data => {
+        this.project = { id: data.id, name: data.name };
+      });
     });
   }
 
   displayDetail(ticketNumber) {
-    this.router.navigate([`/${this.projectName}/board/${ticketNumber}`]);
+    this.router.navigate([`/${this.project.name}/board/${ticketNumber}`]);
   }
 
   openCreateTicketDialog() {
     const dialogRef = this.dialog.open(CreateTicketDialogComponent, {
       width: '700px',
       height: '600px',
-      data: this.projectName,
+      data: this.project,
     });
-
-    // return dialogRef.beforeClosed();
   }
 }

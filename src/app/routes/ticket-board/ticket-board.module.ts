@@ -5,11 +5,12 @@ import { TicketBoardRoutingModule } from '../ticket-board/ticket-board-routing.m
 import { TicketDetailModule } from '../ticket-detail/ticket-detail.module';
 import { SharedModule } from 'app/shared/shared.module';
 import { CreateTicketDialogComponent } from 'app/shared/component/create-ticket-dialog/create-ticket-dialog.component';
+import { ProjectService } from 'app/core/services/project.service';
 
 @NgModule({
   imports: [TicketBoardRoutingModule, TicketDetailModule, SharedModule],
   declarations: [TicketBoardComponent],
   entryComponents: [CreateTicketDialogComponent],
-  providers: [TicketService],
+  providers: [TicketService, ProjectService],
 })
 export class TicketBoardModule {}

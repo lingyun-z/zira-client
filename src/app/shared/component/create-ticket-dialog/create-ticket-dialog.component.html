@@ -1,107 +1,105 @@
-<div>
+<div class="page">
   <div class="title">
     Create New Ticket
   </div>
-  <form [formGroup]="ticketFormGroup">
-    <div>
-      <mat-form-field class="input-box">
-        <mat-label>title</mat-label>
-        <input matInput formControlName="title" />
-        <mat-error
-          *ngIf="
-            ticketFormGroup.controls.title.errors &&
-            ticketFormGroup.controls.title.errors.required
-          "
-        >
-          ticket title is required.
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <div>
-      <mat-form-field class="input-box">
-        <mat-label>estimate</mat-label>
-        <input matInput formControlName="estimate" />
-      </mat-form-field>
-    </div>
-    <div class="field-line">
+  <div class="form-box">
+    <form [formGroup]="ticketFormGroup">
       <div>
-        <mat-form-field class="select-box">
-          <mat-label>type</mat-label>
-          <mat-select formControlName="type">
-            <mat-option value="stroy">
-              <div>stroy</div>
-            </mat-option>
-            <mat-option value="task">
-              <div>task</div>
-            </mat-option>
-            <mat-option value="sub-task">
-              <div>sub-task</div>
-            </mat-option>
-          </mat-select>
+        <mat-form-field class="input-box">
+          <mat-label>title</mat-label>
+          <input matInput formControlName="title" />
           <mat-error
             *ngIf="
-              ticketFormGroup.controls.type.errors &&
-              ticketFormGroup.controls.type.errors.required
+              ticketFormGroup.controls.title.errors &&
+              ticketFormGroup.controls.title.errors.required
             "
           >
-            ticket type is required.
+            ticket title is required.
           </mat-error>
         </mat-form-field>
       </div>
-      <!-- <div>
-        <mat-form-field class="select-box">
-          <mat-label>assignee</mat-label>
-          <mat-select formControlName="assignee">
-            <mat-option [value]="user.userId" *ngFor="let user of userList">
-              <div>{{ user.user.name }}</div>
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div> -->
       <div>
-        <mat-form-field>
-          <mat-label>assignee</mat-label>
-
-          <input
-            type="text"
-            matInput
-            formControlName="assignee"
-            [matAutocomplete]="auto"
-          />
-          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayUser">
-            <mat-option
-              [value]="user"
-              *ngFor="let user of filteredOptions | async"
-            >
-              <div>{{ user.name }}</div>
-            </mat-option>
-          </mat-autocomplete>
+        <mat-form-field class="input-box">
+          <mat-label>estimate</mat-label>
+          <input matInput formControlName="estimate" />
         </mat-form-field>
       </div>
-    </div>
+      <div class="field-line">
+        <div>
+          <mat-form-field class="select-box">
+            <mat-label>type</mat-label>
+            <mat-select formControlName="type">
+              <mat-option value="stroy">
+                <div>stroy</div>
+              </mat-option>
+              <mat-option value="task">
+                <div>task</div>
+              </mat-option>
+              <mat-option value="sub-task">
+                <div>sub-task</div>
+              </mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="
+                ticketFormGroup.controls.type.errors &&
+                ticketFormGroup.controls.type.errors.required
+              "
+            >
+              ticket type is required.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <mat-label>assignee</mat-label>
 
-    <div>
-      <mat-form-field class="input-box area-box">
-        <mat-label>description</mat-label>
-        <textarea
-          matInput
-          matTextareaAutosize
-          formControlName="description"
-          matAutosizeMinRows="5"
-          matAutosizeMaxRows="5"
-        ></textarea>
-      </mat-form-field>
+            <input
+              type="text"
+              matInput
+              formControlName="assignee"
+              [matAutocomplete]="auto"
+              (focus)="next()"
+              (ngModelChange)="next()"
+            />
+
+            <mat-autocomplete
+              #auto="matAutocomplete"
+              [displayWith]="displayUser"
+            >
+              <mat-option
+                [value]="user"
+                *ngFor="let user of filteredOptions | async"
+              >
+                <div>{{ user.name }}</div>
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div>
+        <mat-form-field class="input-box area-box">
+          <mat-label>description</mat-label>
+          <textarea
+            matInput
+            matTextareaAutosize
+            formControlName="description"
+            matAutosizeMinRows="5"
+            matAutosizeMaxRows="5"
+          ></textarea>
+        </mat-form-field>
+      </div>
+    </form>
+    <div class="action-box">
+      <button mat-raised-button (click)="close()">CANCEL</button>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="submit()"
+        [disabled]="ticketFormGroup.invalid"
+      >
+        SUBMIT
+      </button>
     </div>
-  </form>
-  <div class="action-box">
-    <button mat-raised-button (click)="close()">CANCEL</button>
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="submit()"
-      [disabled]="ticketFormGroup.invalid"
-    >
-      SUBMIT
-    </button>
   </div>
 </div>

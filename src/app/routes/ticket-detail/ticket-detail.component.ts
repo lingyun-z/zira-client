@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { TicketService } from 'app/core/services/ticket.service';
 import { ActivatedRoute } from '@angular/router';
 import { flatMap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-ticket-detail',
@@ -23,10 +24,13 @@ export class TicketDetailComponent implements OnInit {
         flatMap(params => {
           this.projectName = params.project;
           this.ticketNumber = params.number ? params.number : this.ticketNumber;
-          return this.ticketService.getTicketByNumber(
-            this.projectName,
-            this.ticketNumber,
-          );
+          if (this.ticketNumber) {
+            return this.ticketService.getTicketByNumber(
+              this.projectName,
+              this.ticketNumber,
+            );
+          }
+          return of(null);
         }),
       )
       .subscribe(data => {

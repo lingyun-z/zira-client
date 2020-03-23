@@ -1,10 +1,9 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TicketService } from 'app/core/services/ticket.service';
 import { UserService } from 'app/core/services/user.service';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-create-ticket-dialog',
@@ -20,41 +19,32 @@ export class CreateTicketDialogComponent implements OnInit {
     assignee: new FormControl(''),
   });
   userList = [];
-  filteredOptions: Observable<string[]>;
+  filteredOptions: Subject<any[]> = new Subject();
+
   constructor(
-    @Inject(MAT_DIALOG_DATA) public projectName: any,
+    @Inject(MAT_DIALOG_DATA) public project: any,
     public dialogRef: MatDialogRef<CreateTicketDialogComponent>,
     private ticketService: TicketService,
     private userService: UserService,
   ) {}
 
   ngOnInit() {
-    this.userService
-      .getAuthUserByProjectId('a7d243f3-3061-11ea-921f-0242ac110002')
-      .subscribe(data => {
-        this.userList = data.map(user => {
-          return { id: user.userId, ...user.user };
-        });
+    this.userService.getAuthUserByProjectId(this.project.id).subscribe(data => {
+      this.userList = data.map(user => {
+        return { id: user.userId, ...user.user };
       });
-    this.filteredOptions = this.ticketFormGroup.controls[
-      'assignee'
-    ].valueChanges.pipe(
-      startWith(''),
-      map(value => (typeof value === 'string' ? value : value.name)),
-      map((value: string) => this._filter(value)),
-    );
+    });
   }
 
   submit() {
     const newTicket = this.ticketFormGroup.value;
     newTicket.assignee = newTicket.assignee.id;
     Object.assign(newTicket, {
-      projectName: this.projectName,
+      projectName: this.project.name,
     });
-    console.log(newTicket);
-    // this.ticketService.addTicket(this.ticketFormGroup.value).subscribe(data => {
-    //   this.dialogRef.close();
-    // });
+    this.ticketService.addTicket(this.ticketFormGroup.value).subscribe(data => {
+      this.dialogRef.close();
+    });
   }
 
   close() {
@@ -63,6 +53,12 @@ export class CreateTicketDialogComponent implements OnInit {
 
   displayUser(user) {
     return user ? user.name : '';
+  }
+
+  next() {
+    let input = this.ticketFormGroup.controls.assignee.value;
+    input = typeof input === 'string' ? input : input.name;
+    this.filteredOptions.next(this._filter(input));
   }
 
   private _filter(value: string): string[] {

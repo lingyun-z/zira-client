@@ -27,7 +27,7 @@
   <div class="ticket-detail-box">
     <app-ticket-detail
       *ngIf="ticketList"
-      [ticketNumber]="ticketList[0].number"
+      [ticketNumber]="ticketList.length ? ticketList[0].number : ''"
     ></app-ticket-detail>
   </div>
 </div>

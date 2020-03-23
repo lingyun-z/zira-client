@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { ProjectService } from 'app/core/services/project.service';
+import { CreateProjectDialogComponent } from 'app/shared/component/create-project-dialog/create-project-dialog.component';
 
 @Component({
   selector: 'app-project',
@@ -9,11 +11,21 @@ import { ProjectService } from 'app/core/services/project.service';
 export class ProjectComponent implements OnInit {
   projects: any[];
 
-  constructor(private projectService: ProjectService) {}
+  constructor(
+    private projectService: ProjectService,
+    private dialog: MatDialog,
+  ) {}
 
   ngOnInit() {
     this.projectService.getAuthByUserId().subscribe(data => {
       this.projects = data;
+    });
+  }
+
+  openCreateProjectDialog() {
+    this.dialog.open(CreateProjectDialogComponent, {
+      width: '700px',
+      height: '400px',
     });
   }
 }

@@ -1,4 +1,4 @@
-<div class="ticket-page" *ngIf="ticket">
+<div class="ticket-page" *ngIf="ticket; else noTicket">
   <div class="ticket-head">
     <!-- <div class="ticket-path">
       <p>
@@ -85,3 +85,8 @@
     </div>
   </div>
 </div>
+<ng-template #noTicket>
+  <div class="none-page">
+    <div class="text">There is no Ticket in project {{ projectName }}</div>
+  </div>
+</ng-template>
