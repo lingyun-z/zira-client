@@ -1,4 +1,5 @@
 FROM tiangolo/node-frontend:10 as build-stage
+RUN yarn config set registry https://registry.npm.taobao.org
 RUN mkdir -p /app
 COPY ./ /app/
 RUN yarn install && yarn build:dev
