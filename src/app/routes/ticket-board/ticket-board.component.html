@@ -21,7 +21,22 @@
       <div class="create-button" (click)="openCreateTicketDialog()">
         + create ticket
       </div>
-      <div class="page-box"></div>
+      <div class="page-box">
+        <div>
+          <span class="icon" (click)="prevPage()" *ngIf="pageNum > 1">
+            <mat-icon svgIcon="leftArrow"></mat-icon>
+          </span>
+        </div>
+        <div>
+          <span
+            class="icon"
+            (click)="nextPage()"
+            *ngIf="ticketList.length === 20"
+          >
+            <mat-icon svgIcon="rightArrow"></mat-icon>
+          </span>
+        </div>
+      </div>
     </div>
   </div>
   <div class="ticket-detail-box">

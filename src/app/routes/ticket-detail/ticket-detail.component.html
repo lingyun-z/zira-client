@@ -15,6 +15,25 @@
     <button mat-flat-button color="primary" (click)="assignToMe()">
       assign to me
     </button>
+
+    <div class="button-toggle">
+      <button
+        mat-stroked-button
+        color="primary"
+        (click)="updateTicketStatus(ticketStatusFlow[ticket.status].prev)"
+        *ngIf="ticketStatusFlow[ticket.status].prev"
+      >
+        {{ ticketStatusFlow[ticket.status].prev }}
+      </button>
+      <button
+        mat-stroked-button
+        color="primary"
+        (click)="updateTicketStatus(ticketStatusFlow[ticket.status].next)"
+        *ngIf="ticketStatusFlow[ticket.status].next"
+      >
+        {{ ticketStatusFlow[ticket.status].next }}
+      </button>
+    </div>
   </div>
   <div class="ticket-body">
     <div class="ticket-detail">

@@ -1,5 +1,28 @@
 mutation updateTicket($ticket: TicketInput!) {
   updateTicket(ticket: $ticket) {
     id
+    number
+    projectName
+    parentTicket {
+      id
+      number
+    }
+    title
+    description
+    estimate
+    status
+    type
+    createdBy
+    createdUser {
+      id
+      name
+    }
+    assignee
+    assigneeUser {
+      id
+      name
+    }
+    createdDate
+    updateDate
   }
 }

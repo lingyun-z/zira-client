@@ -94,7 +94,7 @@ export namespace GetAuthUserByProjectId {
   export type Query = {
     __typename?: 'Query';
 
-    getAuthUserByProjectId: Maybe<Maybe<GetAuthUserByProjectId>[]>;
+    getAuthUserByProjectId: Maybe<(Maybe<GetAuthUserByProjectId>)[]>;
   };
 
   export type GetAuthUserByProjectId = {
@@ -150,7 +150,7 @@ export namespace GetPagedTicket {
   export type Query = {
     __typename?: 'Query';
 
-    getPagedTicket: Maybe<Maybe<GetPagedTicket>[]>;
+    getPagedTicket: Maybe<(Maybe<GetPagedTicket>)[]>;
   };
 
   export type GetPagedTicket = {
@@ -194,7 +194,7 @@ export namespace GetAuthByUserId {
   export type Query = {
     __typename?: 'Query';
 
-    getAuthByUserId: Maybe<Maybe<GetAuthByUserId>[]>;
+    getAuthByUserId: Maybe<(Maybe<GetAuthByUserId>)[]>;
   };
 
   export type GetAuthByUserId = {
@@ -304,6 +304,58 @@ export namespace UpdateTicket {
     __typename?: 'Ticket';
 
     id: string;
+
+    number: Maybe<string>;
+
+    projectName: Maybe<string>;
+
+    parentTicket: Maybe<ParentTicket>;
+
+    title: Maybe<string>;
+
+    description: Maybe<string>;
+
+    estimate: Maybe<string>;
+
+    status: Maybe<string>;
+
+    type: Maybe<string>;
+
+    createdBy: Maybe<string>;
+
+    createdUser: Maybe<CreatedUser>;
+
+    assignee: Maybe<string>;
+
+    assigneeUser: Maybe<AssigneeUser>;
+
+    createdDate: Maybe<string>;
+
+    updateDate: Maybe<string>;
+  };
+
+  export type ParentTicket = {
+    __typename?: 'Ticket';
+
+    id: string;
+
+    number: Maybe<string>;
+  };
+
+  export type CreatedUser = {
+    __typename?: 'User';
+
+    id: string;
+
+    name: Maybe<string>;
+  };
+
+  export type AssigneeUser = {
+    __typename?: 'User';
+
+    id: string;
+
+    name: Maybe<string>;
   };
 }
 
@@ -501,6 +553,29 @@ export class UpdateTicketGQL extends Apollo.Mutation<
     mutation updateTicket($ticket: TicketInput!) {
       updateTicket(ticket: $ticket) {
         id
+        number
+        projectName
+        parentTicket {
+          id
+          number
+        }
+        title
+        description
+        estimate
+        status
+        type
+        createdBy
+        createdUser {
+          id
+          name
+        }
+        assignee
+        assigneeUser {
+          id
+          name
+        }
+        createdDate
+        updateDate
       }
     }
   `;

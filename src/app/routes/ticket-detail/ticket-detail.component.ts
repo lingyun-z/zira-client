@@ -17,6 +17,16 @@ export class TicketDetailComponent implements OnInit {
   projectName: string;
   ticket;
   currentUser;
+
+  ticketStatusFlow = {
+    ready: { next: 'Dev Accept', prev: null },
+    'Dev Accept': { next: 'Dev Done', prev: 'ready' },
+    'Dev Done': { next: 'QA Ready', prev: 'Dev Accept' },
+    'QA Ready': { next: 'QA Accept', prev: 'Dev Done' },
+    'QA Accept': { next: 'QA Done', prev: 'QA Ready' },
+    'QA Done': { next: 'Done', prev: 'QA Accept' },
+    Done: { next: null, prev: 'QA Done' },
+  };
   constructor(
     private actRoute: ActivatedRoute,
     private dialog: MatDialog,
@@ -70,6 +80,13 @@ export class TicketDetailComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(_ => {
       this.getTicket();
+    });
+  }
+
+  updateTicketStatus(status) {
+    const updatedTicket = { id: this.ticket.id, status };
+    this.ticketService.updateTicket(updatedTicket).subscribe(data => {
+      this.ticket = data;
     });
   }
 }

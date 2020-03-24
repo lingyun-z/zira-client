@@ -1,3 +1,5 @@
+@import 'src/theme.scss';
+
 .head-nav {
   height: 60px;
   border-bottom: 1px solid rgb(200, 200, 200);
@@ -53,7 +55,28 @@
         color: rgb(150, 150, 150);
         line-height: 35px;
       }
+
       .page-box {
+        display: flex;
+        justify-content: space-around;
+        width: 80%;
+        min-width: 100px;
+        margin: 0 auto;
+        div {
+          height: 50px;
+          width: 50px;
+
+          .icon {
+            color: $blue;
+            padding: 18px 10px 0 0;
+            font-size: 15px;
+
+            mat-icon {
+              height: 48px;
+              width: 48px;
+            }
+          }
+        }
       }
     }
   }

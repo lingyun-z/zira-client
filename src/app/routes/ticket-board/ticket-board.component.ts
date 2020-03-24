@@ -11,9 +11,10 @@ import { ProjectService } from 'app/core/services/project.service';
   styleUrls: ['./ticket-board.component.scss'],
 })
 export class TicketBoardComponent implements OnInit {
-  ticketList;
+  ticketList = [];
   project: any;
-
+  pageNum: number;
+  pageSize: number;
   constructor(
     private ticketService: TicketService,
     private projectService: ProjectService,
@@ -24,7 +25,9 @@ export class TicketBoardComponent implements OnInit {
 
   ngOnInit() {
     this.actRouter.params.subscribe(params => {
-      this.getPagedTicket(params.project);
+      this.pageNum = 1;
+      this.project = { name: params.project };
+      this.getPagedTicket();
       this.projectService.getProjectByName(params.project).subscribe(data => {
         this.project = { id: data.id, name: data.name };
       });
@@ -42,14 +45,28 @@ export class TicketBoardComponent implements OnInit {
       data: { project: this.project, ticket: null },
     });
 
-    dialogRef
-      .afterClosed()
-      .subscribe(_ => this.getPagedTicket(this.project.name));
+    dialogRef.afterClosed().subscribe(_ => this.getPagedTicket());
   }
 
-  getPagedTicket(projectName) {
-    this.ticketService.getPagedTicket(projectName, 1, 20).subscribe(data => {
-      this.ticketList = data;
-    });
+  getPagedTicket() {
+    this.ticketService
+      .getPagedTicket(this.project.name, this.pageNum, this.pageSize)
+      .subscribe(data => {
+        this.ticketList = data;
+      });
+  }
+
+  nextPage() {
+    if (this.ticketList.length === 20) {
+      this.pageNum += 1;
+      this.getPagedTicket();
+    }
+  }
+
+  prevPage() {
+    if (this.pageNum > 1) {
+      this.pageNum -= 1;
+      this.getPagedTicket();
+    }
   }
 }
