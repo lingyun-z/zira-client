@@ -1,4 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TicketService } from 'app/core/services/ticket.service';
@@ -27,6 +28,7 @@ export class CreateTicketDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<CreateTicketDialogComponent>,
     private ticketService: TicketService,
     private userService: UserService,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -50,12 +52,11 @@ export class CreateTicketDialogComponent implements OnInit {
   }
 
   createTicket() {
-    const newTicket = this.ticketFormGroup.value;
+    let newTicket = this.ticketFormGroup.value;
     newTicket.assignee = newTicket.assignee.id;
-    Object.assign(newTicket, {
-      projectName: this.data.project.name,
-    });
-    this.ticketService.addTicket(this.ticketFormGroup.value).subscribe(data => {
+    newTicket = { ...newTicket, projectName: this.data.project.name };
+    this.ticketService.addTicket(newTicket).subscribe(data => {
+      this.router.navigate([`/${this.data.project.name}/board/${data.number}`]);
       this.dialogRef.close();
     });
   }

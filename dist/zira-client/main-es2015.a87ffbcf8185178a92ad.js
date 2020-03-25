@@ -14,6 +14,7 @@
     mutation addTicket($ticket: TicketInput!) {
       addTicket(ticket: $ticket) {
         id
+        number
       }
     }
   `}}return t.ngInjectableDef=o.Ob({factory:function(){return new t(o.Pb(r.c))},token:t,providedIn:"root"}),t})(),u=(()=>{class t extends r.e{constructor(){super(...arguments),this.document=s.a`

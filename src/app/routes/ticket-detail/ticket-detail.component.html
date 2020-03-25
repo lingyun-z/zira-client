@@ -1,5 +1,8 @@
 <div class="ticket-page" *ngIf="ticket; else noTicket">
   <div class="ticket-head">
+    <div class="ticket-number">
+      {{ ticket.projectName }}-{{ ticket.number }}
+    </div>
     <div class="ticket-title">
       {{ ticket.title }}
     </div>

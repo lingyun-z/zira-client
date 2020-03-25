@@ -112,6 +112,8 @@ export namespace AddTicket {
     __typename?: 'Ticket';
 
     id: string;
+
+    number: Maybe<string>;
   };
 }
 
@@ -558,6 +560,7 @@ export class AddTicketGQL extends Apollo.Mutation<
     mutation addTicket($ticket: TicketInput!) {
       addTicket(ticket: $ticket) {
         id
+        number
       }
     }
   `;
