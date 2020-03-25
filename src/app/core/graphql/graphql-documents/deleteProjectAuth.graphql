@@ -1,0 +1,5 @@
+mutation deleteProjectAuth($id: ID!) {
+  deleteProjectAuth(id: $id) {
+    status
+  }
+}

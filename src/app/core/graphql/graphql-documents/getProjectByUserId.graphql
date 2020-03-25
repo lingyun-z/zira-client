@@ -1,7 +1,9 @@
 query getAuthByUserId {
   getAuthByUserId {
+    id
     projectId
     project {
+      id
       name
       description
     }

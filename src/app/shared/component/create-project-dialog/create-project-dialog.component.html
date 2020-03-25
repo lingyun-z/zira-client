@@ -37,7 +37,7 @@
       <button
         mat-raised-button
         color="primary"
-        (click)="submit()"
+        (click)="isCreate ? createSubmit() : updateSubmit()"
         [disabled]="projectFormGroup.invalid"
       >
         SUBMIT

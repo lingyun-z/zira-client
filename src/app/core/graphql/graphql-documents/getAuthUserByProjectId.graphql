@@ -1,5 +1,6 @@
 query getAuthUserByProjectId($id: ID!) {
   getAuthUserByProjectId(id: $id) {
+    id
     userId
     user {
       id

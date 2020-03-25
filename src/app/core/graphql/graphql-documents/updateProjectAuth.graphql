@@ -1,0 +1,5 @@
+mutation updateProjectAuth($auth: AuthInput) {
+  updateProjectAuth(auth: $auth) {
+    id
+  }
+}

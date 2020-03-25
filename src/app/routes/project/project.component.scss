@@ -1,15 +1,17 @@
 @import 'src/theme.scss';
 .page {
   padding: 20px;
+
+  .title {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
 }
-.title {
-  font-size: 20px;
-  margin-bottom: 20px;
-}
+
 .list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: flex-start;
   padding: 0 10px 10px 10px;
 
   .project-box {
@@ -24,13 +26,28 @@
 
     .info-line {
       display: flex;
-      .title {
-        width: 100px;
+      line-height: 40px;
+
+      .project-title {
+        width: 120px;
+        font-size: 15px;
+        padding-right: 10px;
+      }
+
+      .value {
+        width: 150px;
         font-size: 15px;
       }
-      .value {
-        width: 250px;
-        font-size: 15px;
+
+      .more {
+        text-align: right;
+        cursor: pointer;
+        flex-grow: 1;
+
+        mat-icon {
+          height: 28px;
+          width: 28px;
+        }
       }
     }
 
@@ -73,4 +90,7 @@
       text-align: center;
     }
   }
+}
+.waring {
+  color: rgb(238, 38, 38);
 }

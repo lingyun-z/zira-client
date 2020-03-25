@@ -1,0 +1,80 @@
+<div class="page" *ngIf="projectList.length; else noProject">
+  <div class="title">
+    User Management
+  </div>
+
+  <div>
+    <div class="action-header">
+      Select your project:
+      <mat-form-field class="input-box">
+        <mat-label>Project</mat-label>
+        <mat-select
+          [(value)]="selectedProject.projectId"
+          (selectionChange)="getAuthUserByProjectId()"
+        >
+          <mat-option
+            [value]="project.projectId"
+            *ngFor="let project of projectList"
+          >
+            {{ project.project.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button
+        mat-stroked-button
+        class="icon"
+        (click)="openAddProjectAuthDialog()"
+      >
+        add user
+      </button>
+    </div>
+    <div class="user-list">
+      <div class="user-header">
+        <div>
+          Name
+        </div>
+        <div>
+          Mail
+        </div>
+        <div>
+          Role
+        </div>
+      </div>
+      <div class="">
+        <div class="user-box" *ngFor="let user of userList">
+          <div class="field">
+            {{ user.user.name }}
+          </div>
+          <div class="field">
+            {{ user.user.mail }}
+          </div>
+          <div class="field">
+            {{ user.role }}
+          </div>
+          <div class="more" *ngIf="user.userId !== currentUser.id">
+            <button mat-icon-button class="icon" [matMenuTriggerFor]="menu">
+              <mat-icon svgIcon="more"></mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="openUpdateProjectAuthDialog(user)">
+                Edit user
+              </button>
+              <button
+                mat-menu-item
+                class="waring"
+                (click)="removeUser(user.id)"
+              >
+                Remove user
+              </button>
+            </mat-menu>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #noProject>
+  <div class="none-page">
+    <div class="text">There is no managed project.</div>
+  </div>
+</ng-template>

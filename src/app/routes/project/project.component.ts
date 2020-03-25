@@ -27,7 +27,27 @@ export class ProjectComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(_ => {
-      console.log(_);
+      this.getProjects();
+    });
+  }
+
+  openUpdateProjectDialog(project) {
+    console.log(project);
+    const dialogRef = this.dialog.open(CreateProjectDialogComponent, {
+      width: '700px',
+      height: '400px',
+      data: {
+        project: project,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(_ => {
+      this.getProjects();
+    });
+  }
+
+  removeProject(projectId) {
+    this.projectService.deleteProjectById(projectId).subscribe(data => {
       this.getProjects();
     });
   }

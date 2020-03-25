@@ -3,6 +3,8 @@ import {
   GetAuthByUserIdGQL,
   AddProjectGQL,
   GetProjectByNameGQL,
+  UpdateProjectGQL,
+  DeleteProjectByIdGQL,
 } from '../generated/graphql';
 import { take, map } from 'rxjs/operators';
 
@@ -12,6 +14,8 @@ export class ProjectService {
     private getAuthByUserIdGQL: GetAuthByUserIdGQL,
     private addProjectGQL: AddProjectGQL,
     private getProjectByNameGQL: GetProjectByNameGQL,
+    private updateProjectGQL: UpdateProjectGQL,
+    private deleteProjectByIdGQL: DeleteProjectByIdGQL,
   ) {}
 
   getAuthByUserId() {
@@ -36,6 +40,20 @@ export class ProjectService {
     return this.addProjectGQL.mutate({ project }).pipe(
       take(1),
       map(({ data }) => data.addProject),
+    );
+  }
+
+  updateProject(project) {
+    return this.updateProjectGQL.mutate({ project }).pipe(
+      take(1),
+      map(({ data }) => data.updateProject),
+    );
+  }
+
+  deleteProjectById(id: string) {
+    return this.deleteProjectByIdGQL.mutate({ id }).pipe(
+      take(1),
+      map(({ data }) => data.deleteProjectById),
     );
   }
 }

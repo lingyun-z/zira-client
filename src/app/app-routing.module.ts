@@ -30,7 +30,14 @@ const routes: Routes = [
           ),
         canLoad: [AuthGuard],
       },
-
+      {
+        path: 'user-management',
+        loadChildren: () =>
+          import('app/routes/user-management/user-management.module').then(
+            m => m.UserManagementModule,
+          ),
+        canLoad: [AuthGuard],
+      },
       {
         path: ':project/board/:number',
         loadChildren: () =>
@@ -41,14 +48,6 @@ const routes: Routes = [
       },
       {
         path: ':project/board',
-        loadChildren: () =>
-          import('app/routes/ticket-board/ticket-board.module').then(
-            m => m.TicketBoardModule,
-          ),
-        canLoad: [AuthGuard],
-      },
-      {
-        path: ':project/ticket/:number',
         loadChildren: () =>
           import('app/routes/ticket-board/ticket-board.module').then(
             m => m.TicketBoardModule,

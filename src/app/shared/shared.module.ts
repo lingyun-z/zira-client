@@ -15,6 +15,7 @@ import { RouterModule } from '@angular/router';
 
 import { CreateTicketDialogComponent } from './component/create-ticket-dialog/create-ticket-dialog.component';
 import { CreateProjectDialogComponent } from './component/create-project-dialog/create-project-dialog.component';
+import { CreateUserDialogComponent } from './component/create-user-dialog/create-user-dialog.component';
 const matModule = [
   MatButtonModule,
   MatDialogModule,
@@ -34,7 +35,11 @@ const matModule = [
     RouterModule,
     ...matModule,
   ],
-  declarations: [CreateTicketDialogComponent, CreateProjectDialogComponent],
+  declarations: [
+    CreateTicketDialogComponent,
+    CreateProjectDialogComponent,
+    CreateUserDialogComponent,
+  ],
   exports: [
     CommonModule,
     FormsModule,

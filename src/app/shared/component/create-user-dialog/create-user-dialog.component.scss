@@ -1,0 +1,42 @@
+.page {
+  height: 100%;
+}
+
+.title {
+  font-size: 20px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  width: 80%;
+}
+
+.form-box {
+  height: calc(100% - 44px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  form {
+    margin: 0 auto;
+    width: 80%;
+    .input-box {
+      width: 100%;
+    }
+
+    .select-box {
+      padding-right: 50px;
+    }
+
+    .field-line {
+      display: flex;
+    }
+  }
+
+  .action-box {
+    align-self: flex-end;
+    display: flex;
+    justify-content: space-between;
+    margin: 30px auto;
+    margin-bottom: 10px;
+    width: 70%;
+  }
+}

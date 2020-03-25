@@ -9,6 +9,16 @@ export interface ProjectInput {
   description?: Maybe<string>;
 }
 
+export interface AuthInput {
+  id?: Maybe<string>;
+
+  projectId: string;
+
+  userId: string;
+
+  role?: Maybe<Role>;
+}
+
 export interface TicketInput {
   id?: Maybe<string>;
 
@@ -43,6 +53,7 @@ export interface UserInput {
 
 export enum Role {
   Owner = 'OWNER',
+  Admin = 'ADMIN',
   Member = 'MEMBER',
 }
 
@@ -68,6 +79,24 @@ export namespace AddProject {
   };
 }
 
+export namespace AddProjectAuth {
+  export type Variables = {
+    auth?: Maybe<AuthInput>;
+  };
+
+  export type Mutation = {
+    __typename?: 'Mutation';
+
+    addProjectAuth: Maybe<AddProjectAuth>;
+  };
+
+  export type AddProjectAuth = {
+    __typename?: 'Auth';
+
+    id: string;
+  };
+}
+
 export namespace AddTicket {
   export type Variables = {
     ticket: TicketInput;
@@ -86,6 +115,80 @@ export namespace AddTicket {
   };
 }
 
+export namespace AddUser {
+  export type Variables = {
+    user?: Maybe<UserInput>;
+  };
+
+  export type Mutation = {
+    __typename?: 'Mutation';
+
+    addUser: Maybe<AddUser>;
+  };
+
+  export type AddUser = {
+    __typename?: 'User';
+
+    id: string;
+  };
+}
+
+export namespace DeleteProjectAuth {
+  export type Variables = {
+    id: string;
+  };
+
+  export type Mutation = {
+    __typename?: 'Mutation';
+
+    deleteProjectAuth: Maybe<DeleteProjectAuth>;
+  };
+
+  export type DeleteProjectAuth = {
+    __typename?: 'Response';
+
+    status: Maybe<string>;
+  };
+}
+
+export namespace DeleteProjectById {
+  export type Variables = {
+    id: string;
+  };
+
+  export type Mutation = {
+    __typename?: 'Mutation';
+
+    deleteProjectById: Maybe<DeleteProjectById>;
+  };
+
+  export type DeleteProjectById = {
+    __typename?: 'Response';
+
+    status: Maybe<string>;
+  };
+}
+
+export namespace GetAllUser {
+  export type Variables = {};
+
+  export type Query = {
+    __typename?: 'Query';
+
+    getAllUser: Maybe<(Maybe<GetAllUser>)[]>;
+  };
+
+  export type GetAllUser = {
+    __typename?: 'User';
+
+    id: string;
+
+    name: Maybe<string>;
+
+    mail: Maybe<string>;
+  };
+}
+
 export namespace GetAuthUserByProjectId {
   export type Variables = {
     id: string;
@@ -99,6 +202,8 @@ export namespace GetAuthUserByProjectId {
 
   export type GetAuthUserByProjectId = {
     __typename?: 'Auth';
+
+    id: string;
 
     userId: string;
 
@@ -200,6 +305,8 @@ export namespace GetAuthByUserId {
   export type GetAuthByUserId = {
     __typename?: 'Auth';
 
+    id: string;
+
     projectId: string;
 
     project: Maybe<Project>;
@@ -211,6 +318,8 @@ export namespace GetAuthByUserId {
 
   export type Project = {
     __typename?: 'Project';
+
+    id: string;
 
     name: Maybe<string>;
 
@@ -286,6 +395,42 @@ export namespace GetTicketByNumber {
     id: string;
 
     name: Maybe<string>;
+  };
+}
+
+export namespace UpdateProject {
+  export type Variables = {
+    project: ProjectInput;
+  };
+
+  export type Mutation = {
+    __typename?: 'Mutation';
+
+    updateProject: Maybe<UpdateProject>;
+  };
+
+  export type UpdateProject = {
+    __typename?: 'Project';
+
+    id: string;
+  };
+}
+
+export namespace UpdateProjectAuth {
+  export type Variables = {
+    auth?: Maybe<AuthInput>;
+  };
+
+  export type Mutation = {
+    __typename?: 'Mutation';
+
+    updateProjectAuth: Maybe<UpdateProjectAuth>;
+  };
+
+  export type UpdateProjectAuth = {
+    __typename?: 'Auth';
+
+    id: string;
   };
 }
 
@@ -390,6 +535,21 @@ export class AddProjectGQL extends Apollo.Mutation<
 @Injectable({
   providedIn: 'root',
 })
+export class AddProjectAuthGQL extends Apollo.Mutation<
+  AddProjectAuth.Mutation,
+  AddProjectAuth.Variables
+> {
+  document: any = gql`
+    mutation addProjectAuth($auth: AuthInput) {
+      addProjectAuth(auth: $auth) {
+        id
+      }
+    }
+  `;
+}
+@Injectable({
+  providedIn: 'root',
+})
 export class AddTicketGQL extends Apollo.Mutation<
   AddTicket.Mutation,
   AddTicket.Variables
@@ -405,6 +565,68 @@ export class AddTicketGQL extends Apollo.Mutation<
 @Injectable({
   providedIn: 'root',
 })
+export class AddUserGQL extends Apollo.Mutation<
+  AddUser.Mutation,
+  AddUser.Variables
+> {
+  document: any = gql`
+    mutation addUser($user: UserInput) {
+      addUser(user: $user) {
+        id
+      }
+    }
+  `;
+}
+@Injectable({
+  providedIn: 'root',
+})
+export class DeleteProjectAuthGQL extends Apollo.Mutation<
+  DeleteProjectAuth.Mutation,
+  DeleteProjectAuth.Variables
+> {
+  document: any = gql`
+    mutation deleteProjectAuth($id: ID!) {
+      deleteProjectAuth(id: $id) {
+        status
+      }
+    }
+  `;
+}
+@Injectable({
+  providedIn: 'root',
+})
+export class DeleteProjectByIdGQL extends Apollo.Mutation<
+  DeleteProjectById.Mutation,
+  DeleteProjectById.Variables
+> {
+  document: any = gql`
+    mutation deleteProjectById($id: ID!) {
+      deleteProjectById(id: $id) {
+        status
+      }
+    }
+  `;
+}
+@Injectable({
+  providedIn: 'root',
+})
+export class GetAllUserGQL extends Apollo.Query<
+  GetAllUser.Query,
+  GetAllUser.Variables
+> {
+  document: any = gql`
+    query getAllUser {
+      getAllUser {
+        id
+        name
+        mail
+      }
+    }
+  `;
+}
+@Injectable({
+  providedIn: 'root',
+})
 export class GetAuthUserByProjectIdGQL extends Apollo.Query<
   GetAuthUserByProjectId.Query,
   GetAuthUserByProjectId.Variables
@@ -412,6 +634,7 @@ export class GetAuthUserByProjectIdGQL extends Apollo.Query<
   document: any = gql`
     query getAuthUserByProjectId($id: ID!) {
       getAuthUserByProjectId(id: $id) {
+        id
         userId
         user {
           id
@@ -490,8 +713,10 @@ export class GetAuthByUserIdGQL extends Apollo.Query<
   document: any = gql`
     query getAuthByUserId {
       getAuthByUserId {
+        id
         projectId
         project {
+          id
           name
           description
         }
@@ -538,6 +763,36 @@ export class GetTicketByNumberGQL extends Apollo.Query<
         }
         createdDate
         updateDate
+      }
+    }
+  `;
+}
+@Injectable({
+  providedIn: 'root',
+})
+export class UpdateProjectGQL extends Apollo.Mutation<
+  UpdateProject.Mutation,
+  UpdateProject.Variables
+> {
+  document: any = gql`
+    mutation updateProject($project: ProjectInput!) {
+      updateProject(project: $project) {
+        id
+      }
+    }
+  `;
+}
+@Injectable({
+  providedIn: 'root',
+})
+export class UpdateProjectAuthGQL extends Apollo.Mutation<
+  UpdateProjectAuth.Mutation,
+  UpdateProjectAuth.Variables
+> {
+  document: any = gql`
+    mutation updateProjectAuth($auth: AuthInput) {
+      updateProjectAuth(auth: $auth) {
+        id
       }
     }
   `;

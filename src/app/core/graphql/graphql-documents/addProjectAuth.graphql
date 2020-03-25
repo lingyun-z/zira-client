@@ -1,0 +1,5 @@
+mutation addProjectAuth($auth: AuthInput) {
+  addProjectAuth(auth: $auth) {
+    id
+  }
+}

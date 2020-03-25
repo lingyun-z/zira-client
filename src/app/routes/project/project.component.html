@@ -5,15 +5,42 @@
   <div class="list">
     <div class="project-box" *ngFor="let project of projects">
       <div class="info-line">
-        <div class="title">project name:</div>
+        <div class="project-title">project name:</div>
         <div class="value">
-          <a routerLink="/{{ project.project.name }}/board">{{
-            project.project.name
-          }}</a>
+          <a routerLink="/{{ project.project.name }}/board">
+            {{ project.project.name }}
+          </a>
+        </div>
+        <div class="more">
+          <button
+            mat-icon-button
+            class="icon"
+            [matMenuTriggerFor]="menu"
+            *ngIf="project.role !== 'MEMBER'"
+          >
+            <mat-icon svgIcon="more"></mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button
+              mat-menu-item
+              *ngIf="project.role === 'ADMIN' || project.role === 'OWNER'"
+              (click)="openUpdateProjectDialog(project.project)"
+            >
+              Edit project
+            </button>
+            <button
+              mat-menu-item
+              class="waring"
+              *ngIf="project.role === 'OWNER'"
+              (click)="removeProject(project.project.id)"
+            >
+              Remove project
+            </button>
+          </mat-menu>
         </div>
       </div>
       <div class="info-line">
-        <div class="title">description:</div>
+        <div class="project-title">description:</div>
         <div class="value">
           {{ project.project.description }}
         </div>

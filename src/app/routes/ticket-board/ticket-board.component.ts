@@ -11,7 +11,7 @@ import { ProjectService } from 'app/core/services/project.service';
   styleUrls: ['./ticket-board.component.scss'],
 })
 export class TicketBoardComponent implements OnInit {
-  ticketList = [];
+  ticketList;
   project: any;
   pageNum: number;
   pageSize: number;

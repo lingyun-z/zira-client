@@ -1,0 +1,5 @@
+mutation deleteProjectById($id: ID!) {
+  deleteProjectById(id: $id) {
+    status
+  }
+}
