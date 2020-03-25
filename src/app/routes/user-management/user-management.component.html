@@ -51,7 +51,10 @@
           <div class="field">
             {{ user.role }}
           </div>
-          <div class="more" *ngIf="user.userId !== currentUser.id">
+          <div
+            class="more"
+            *ngIf="user.userId !== currentUser.id && user.role !== 'OWNER'"
+          >
             <button mat-icon-button class="icon" [matMenuTriggerFor]="menu">
               <mat-icon svgIcon="more"></mat-icon>
             </button>
