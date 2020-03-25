@@ -27,12 +27,13 @@
       .input-box {
         width: 100%;
       }
-
-      .action-box {
-        margin: 50px 0;
-        display: flex;
-        justify-content: space-between;
-      }
+    }
+    .action-box {
+      margin: 50px auto;
+      width: 70%;
+      max-width: 500px;
+      display: flex;
+      justify-content: space-between;
     }
   }
 }

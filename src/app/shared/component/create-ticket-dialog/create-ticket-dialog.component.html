@@ -1,7 +1,13 @@
 <div class="page">
-  <div class="title">
+  <div class="title" *ngIf="isCreate; else update">
     Create New Ticket
   </div>
+  <ng-template #update>
+    <div class="title">
+      Update Ticket
+    </div>
+  </ng-template>
+
   <div class="form-box">
     <form [formGroup]="ticketFormGroup">
       <div>

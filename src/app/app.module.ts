@@ -12,6 +12,8 @@ import { ApolloModule } from 'apollo-angular';
 import { AppComponent } from './app.component';
 import { UserService } from './core/services/user.service';
 import { AuthService } from './core/services/auth.service';
+import { ToastService } from './core/services/toast.service';
+
 import { AuthLogoutService } from './core/services/auth-logout.service';
 import { WelcomeGuard } from './core/guard/welcome-guard.service';
 import { AuthGuard } from './core/guard/auth-guard.service';
@@ -32,6 +34,7 @@ import { AuthGuard } from './core/guard/auth-guard.service';
     UserService,
     AuthService,
     AuthLogoutService,
+    ToastService,
     AuthGuard,
     WelcomeGuard,
   ],

@@ -1,7 +1,12 @@
 <div class="page">
-  <div class="title">
+  <div class="title" *ngIf="isCreate; else update">
     Create New Project
   </div>
+  <ng-template #update>
+    <div class="title">
+      Update Project
+    </div>
+  </ng-template>
   <div class="form-box">
     <form [formGroup]="projectFormGroup">
       <div>

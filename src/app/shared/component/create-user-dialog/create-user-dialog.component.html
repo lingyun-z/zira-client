@@ -1,7 +1,12 @@
 <div class="page">
-  <div class="title">
+  <div class="title" *ngIf="isCreate; else update">
     Add New User
   </div>
+  <ng-template #update>
+    <div class="title">
+      Update User
+    </div>
+  </ng-template>
 
   <div class="form-box">
     <form [formGroup]="userFormGroup">

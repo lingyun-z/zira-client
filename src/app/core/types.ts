@@ -8,3 +8,8 @@ export interface HttpErrorResponseInterface extends Error {
   statusText: string;
   url: string;
 }
+export enum ToastColorOption {
+  ERROR = 'error',
+  SUCCESS = 'success',
+  WARNING = 'warning',
+}

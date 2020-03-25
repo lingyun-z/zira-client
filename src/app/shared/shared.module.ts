@@ -10,6 +10,7 @@ import {
   MatSelectModule,
   MatSidenavModule,
   MatAutocompleteModule,
+  MatSnackBarModule,
 } from '@angular/material';
 import { RouterModule } from '@angular/router';
 
@@ -25,6 +26,7 @@ const matModule = [
   MatSelectModule,
   MatSidenavModule,
   MatAutocompleteModule,
+  MatSnackBarModule,
 ];
 
 @NgModule({
