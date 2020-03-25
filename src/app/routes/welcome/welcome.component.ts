@@ -12,12 +12,21 @@ export class WelcomeComponent implements OnInit {
     mail: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
   });
+  loginFailed = false;
 
   constructor(private authService: AuthService) {}
 
   ngOnInit() {}
 
   public login() {
-    this.authService.login();
+    this.authService
+      .getAuthToken({ mail: this.loginFormGroup.controls.mail.value })
+      .subscribe(data => {
+        if (!!data) {
+          this.authService.login(data);
+        } else {
+          this.loginFailed = true;
+        }
+      });
   }
 }

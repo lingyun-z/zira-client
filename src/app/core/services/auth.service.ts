@@ -3,6 +3,8 @@ import { Apollo } from 'apollo-angular';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Router } from '@angular/router';
 import { UserService } from './user.service';
+import { GetUserTokenGQL } from '../generated/graphql';
+import { take, map } from 'rxjs/operators';
 
 @Injectable()
 export class AuthService {
@@ -13,17 +15,16 @@ export class AuthService {
     private apollo: Apollo,
     private router: Router,
     private userService: UserService,
+    private getUserTokenGQL: GetUserTokenGQL,
   ) {}
 
-  public async login() {
+  public async login(token) {
     await this.apollo.getClient().resetStore();
-    await this.handleAuthentication();
+    await this.handleAuthentication(token);
   }
 
-  public handleAuthentication() {
+  public handleAuthentication(authResult) {
     return new Promise(async () => {
-      const authResult = this.getAuthToken();
-
       const expiresAt = JSON.stringify(
         authResult.expiresIn * 1000 + new Date().getTime(),
       );
@@ -37,8 +38,13 @@ export class AuthService {
     });
   }
 
-  private getAuthToken(): any {
-    return { token: 'this_is_a_token', expiresIn: 3600 };
+  public getAuthToken(user) {
+    return this.getUserTokenGQL
+      .watch({ user }, { fetchPolicy: 'network-only' })
+      .valueChanges.pipe(
+        take(1),
+        map(({ data }) => data.getUserToken),
+      );
   }
 
   public isAuthenticated(): boolean {

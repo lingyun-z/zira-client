@@ -9,9 +9,9 @@ import { ApolloLink } from 'apollo-link';
 import { split } from 'apollo-link';
 import { Router } from '@angular/router';
 import { get } from 'lodash';
-import { HttpErrorResponseInterface } from 'app/core/types';
 import axios from 'axios';
 import { environment } from 'environments/environment';
+import { AuthService } from '../services/auth.service';
 const { buildAxiosFetch } = require('@lifeomic/axios-fetch');
 
 @NgModule({
@@ -19,13 +19,18 @@ const { buildAxiosFetch } = require('@lifeomic/axios-fetch');
   declarations: [],
 })
 export class GraphQLModule {
-  constructor(apollo: Apollo, httpLink: HttpLink, private router: Router) {
+  constructor(
+    apollo: Apollo,
+    httpLink: HttpLink,
+    private router: Router,
+    private authService: AuthService,
+  ) {
     const _httpLink = httpLink.create({ uri: environment.GRAPHQL_API_URL });
 
     const authLink = new ApolloLink((operation, forward) => {
       operation.setContext({
         headers: {
-          Authorization: `Bearer ${this.getToken()}` || 'no token',
+          Authorization: `${this.getToken()}` || 'no token',
         },
       });
 
@@ -33,25 +38,16 @@ export class GraphQLModule {
     });
 
     const errorLink = onError(({ graphQLErrors, networkError }) => {
-      if (
-        networkError &&
-        (networkError as HttpErrorResponseInterface).status === 401
-      ) {
-        console.error(401);
-      }
-
-      if (graphQLErrors || networkError) {
-        if (get(graphQLErrors[0], 'message').includes('not a customer admin')) {
-          this.router.navigate(['/']);
-          return;
-        }
+      if (get(graphQLErrors[0], 'errorType') === 'ValidationError') {
+        authService.logout();
+      } else {
         console.error('Something went wrong. Please try again.');
       }
     });
 
     const gqlAxios = axios.create();
     const uploadLink = createUploadLink({
-      uri: 'http://localhost:8769/graphql',
+      uri: environment.GRAPHQL_API_URL,
       fetch: buildAxiosFetch(gqlAxios, (config, input, init) => ({
         ...config,
         onUploadProgress: init.onUploadProgress,

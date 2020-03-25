@@ -1,0 +1,6 @@
+query getUserToken($user: UserInput) {
+  getUserToken(user: $user) {
+    token
+    expiresIn
+  }
+}

@@ -32,12 +32,20 @@
               Password is required.
             </mat-error>
           </mat-form-field>
+          <div class="login-error" *ngIf="loginFailed">
+            E-mail or Password is wrong.
+          </div>
         </div>
         <div class="action-box">
           <button mat-stroked-button>
             Sign Up
           </button>
-          <button mat-raised-button (click)="login()" color="primary">
+          <button
+            mat-raised-button
+            (click)="login()"
+            color="primary"
+            [disabled]="loginFormGroup.invalid"
+          >
             Sign In
           </button>
         </div>

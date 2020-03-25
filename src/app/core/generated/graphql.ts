@@ -1,6 +1,16 @@
 /* tslint:disable */
 export type Maybe<T> = T | null;
 
+export interface UserInput {
+  id?: Maybe<string>;
+
+  workUserId?: Maybe<string>;
+
+  name?: Maybe<string>;
+
+  mail?: Maybe<string>;
+}
+
 export interface ProjectInput {
   id?: Maybe<string>;
 
@@ -39,16 +49,6 @@ export interface TicketInput {
   createdBy?: Maybe<string>;
 
   assignee?: Maybe<string>;
-}
-
-export interface UserInput {
-  id?: Maybe<string>;
-
-  workUserId?: Maybe<string>;
-
-  name?: Maybe<string>;
-
-  mail?: Maybe<string>;
 }
 
 export enum Role {
@@ -397,6 +397,26 @@ export namespace GetTicketByNumber {
     id: string;
 
     name: Maybe<string>;
+  };
+}
+
+export namespace GetUserToken {
+  export type Variables = {
+    user?: Maybe<UserInput>;
+  };
+
+  export type Query = {
+    __typename?: 'Query';
+
+    getUserToken: Maybe<GetUserToken>;
+  };
+
+  export type GetUserToken = {
+    __typename?: 'UserToken';
+
+    token: Maybe<string>;
+
+    expiresIn: Maybe<number>;
   };
 }
 
@@ -766,6 +786,22 @@ export class GetTicketByNumberGQL extends Apollo.Query<
         }
         createdDate
         updateDate
+      }
+    }
+  `;
+}
+@Injectable({
+  providedIn: 'root',
+})
+export class GetUserTokenGQL extends Apollo.Query<
+  GetUserToken.Query,
+  GetUserToken.Variables
+> {
+  document: any = gql`
+    query getUserToken($user: UserInput) {
+      getUserToken(user: $user) {
+        token
+        expiresIn
       }
     }
   `;

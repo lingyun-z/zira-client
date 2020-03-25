@@ -50,8 +50,9 @@ export class AuthLogoutService {
 
   private check() {
     const now = Date.now();
+    const expiresAt = Number(localStorage.getItem('expiresAt'));
     const timeLeft = this.lastAction + this.logoutDuration * 60 * 1000;
-    const isTimeout = timeLeft < now;
+    const isTimeout = timeLeft < now && expiresAt < now;
     if (isTimeout) {
       localStorage.removeItem(STORE_KEY);
       this.authService.logout();
