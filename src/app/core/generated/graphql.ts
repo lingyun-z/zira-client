@@ -177,7 +177,7 @@ export namespace GetAllUser {
   export type Query = {
     __typename?: 'Query';
 
-    getAllUser: Maybe<(Maybe<GetAllUser>)[]>;
+    getAllUser: Maybe<Maybe<GetAllUser>[]>;
   };
 
   export type GetAllUser = {
@@ -199,7 +199,7 @@ export namespace GetAuthUserByProjectId {
   export type Query = {
     __typename?: 'Query';
 
-    getAuthUserByProjectId: Maybe<(Maybe<GetAuthUserByProjectId>)[]>;
+    getAuthUserByProjectId: Maybe<Maybe<GetAuthUserByProjectId>[]>;
   };
 
   export type GetAuthUserByProjectId = {
@@ -257,7 +257,7 @@ export namespace GetPagedTicket {
   export type Query = {
     __typename?: 'Query';
 
-    getPagedTicket: Maybe<(Maybe<GetPagedTicket>)[]>;
+    getPagedTicket: Maybe<Maybe<GetPagedTicket>[]>;
   };
 
   export type GetPagedTicket = {
@@ -301,7 +301,7 @@ export namespace GetAuthByUserId {
   export type Query = {
     __typename?: 'Query';
 
-    getAuthByUserId: Maybe<(Maybe<GetAuthByUserId>)[]>;
+    getAuthByUserId: Maybe<Maybe<GetAuthByUserId>[]>;
   };
 
   export type GetAuthByUserId = {
