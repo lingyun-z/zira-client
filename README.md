@@ -1,6 +1,10 @@
-# ZIRAClient
+# ZIRA-Client
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.2.
+
+## Introduce
+This Angular project is the frontend for [ZIRA](https://github.com/lingyun-z/zira-eureka).
+ Using GraphQL Apollo Client to interact with the backend.
 
 ## Development server
 

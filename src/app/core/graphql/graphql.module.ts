@@ -33,7 +33,6 @@ export class GraphQLModule {
           Authorization: `${this.getToken()}` || 'no token',
         },
       });
-
       return forward(operation);
     });
 
