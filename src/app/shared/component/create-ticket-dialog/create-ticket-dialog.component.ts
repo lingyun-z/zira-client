@@ -53,7 +53,7 @@ export class CreateTicketDialogComponent implements OnInit {
 
   createTicket() {
     let newTicket = this.ticketFormGroup.value;
-    newTicket.assignee = newTicket.assignee.id;
+    newTicket.assignee = newTicket.assignee ? newTicket.assignee.id : null;
     newTicket = { ...newTicket, projectName: this.data.project.name };
     this.ticketService.addTicket(newTicket).subscribe(data => {
       this.router.navigate([`/${this.data.project.name}/board/${data.number}`]);
@@ -62,17 +62,17 @@ export class CreateTicketDialogComponent implements OnInit {
   }
 
   updateTicket() {
-    const newTicket = this.ticketFormGroup.value;
-    newTicket.assignee = newTicket.assignee.id;
-    Object.assign(newTicket, {
+    let newTicket = this.ticketFormGroup.value;
+    newTicket.assignee = newTicket.assignee ? newTicket.assignee.id : null;
+    newTicket = {
+      ...newTicket,
       projectName: this.data.project.name,
       id: this.data.ticket.id,
+    };
+    this.ticketService.updateTicket(newTicket).subscribe(data => {
+      this.router.navigate([`/${this.data.project.name}/board/${data.number}`]);
+      this.dialogRef.close();
     });
-    this.ticketService
-      .updateTicket(this.ticketFormGroup.value)
-      .subscribe(data => {
-        this.dialogRef.close();
-      });
   }
 
   close() {

@@ -56,7 +56,7 @@
             *ngIf="
               user.userId !== currentUser.id &&
               user.role !== 'OWNER' &&
-              user.role !== currentUser.role
+              user.role !== selectedProject.role
             "
           >
             <button mat-icon-button class="icon" [matMenuTriggerFor]="menu">
