@@ -11,13 +11,8 @@
             {{ project.project.name }}
           </a>
         </div>
-        <div class="more">
-          <button
-            mat-icon-button
-            class="icon"
-            [matMenuTriggerFor]="menu"
-            *ngIf="project.role !== 'MEMBER'"
-          >
+        <div class="more" *ngIf="project.role !== 'MEMBER'">
+          <button mat-icon-button class="icon" [matMenuTriggerFor]="menu">
             <mat-icon svgIcon="more"></mat-icon>
           </button>
           <mat-menu #menu="matMenu">
